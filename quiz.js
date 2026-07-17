@@ -61,9 +61,9 @@ var selAvatar = null;
 var selEmoji = '';
 var selTeam = null;
 var avNames = {
-  haaland:'Haaland #9', odegaard:'Odegaard #8', nusa:'Nusa #11',
-  nyland:'Nyland #1', berge:'Berge #23', sorloth:'Sorloth #20',
-  bobb:'Bobb #22', ajer:'Ajer #6',
+  haaland:'Morata #7', odegaard:'Pedri #20', nusa:'Yamal #19',
+  nyland:'Unai Simon #23', berge:'Fabian Ruiz #8', sorloth:'Nico Williams #17',
+  bobb:'Dani Olmo #10', ajer:'Laporte #14',
   messi:'Messi #10', alvarez:'Alvarez #9'
 };
 
@@ -602,19 +602,19 @@ window.showPlayerDetail = function(name) {
     ['Lag',e.team||'-'],
     ['Hvem vinner',e.q1],
     ['Spansk ikke-argentinsk scorer',e.q_norscorer],
-    ['Argentinsk-argentinsk scorer',e.q_engscorer],
-    ['Argentinske kongelige pa TV',e.q_engroy],
+    ['Argentinsk scorer fra argentinsk klubb',e.q_engscorer],
+    ['Argentinske profiler pa TV',e.q_engroy],
     ['Spanske kongelige pa TV',e.q_norroy],
-    ['Rekdal/Bohinen nevnt',e.q_rekdal],
+    ['Kjente navn nevnt',e.q_rekdal],
     ['Spania opp i 2-0',e.q_2nil],
-    ['Thatcher/Churchill nevnt',e.q_brit],
+    ['Messi/Iniesta m.fl. nevnt',e.q_brit],
     ['Argentina bommer pa straffe',e.q_engpen],
     ['Resultat (full tid)',e.q3],
     ['Mal 1. omgang',e.q4],
     ['Gule kort',e.q5],
     ['Rott kort',e.q8],
     ['Ro nevnt',e.q_ro],
-    ["It's coming home nevnt",e.q_home],
+    ['Vamos Argentina nevnt',e.q_home],
     ['Kampens 1. mal',e.q7==='0'?'Ingen mal':(e.q7?e.q7+'-'+(parseInt(e.q7)+9)+' min':'-')],
     ['Frispark',e.q10],
     ['Flo-pasninger',e.q11],
