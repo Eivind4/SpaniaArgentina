@@ -138,7 +138,7 @@ window.confirmNewTeam = function() {
 };
 
 // Load teams from Firebase
-onValue(ref(db, 'eng_teams'), function(snap) {
+onValue(ref(db, 'spain_argentina_teams'), function(snap) {
   var sel = document.getElementById('teamSelect');
   if (!sel || !snap.exists()) return;
   var current = sel.value;
@@ -181,7 +181,7 @@ window.submitEntry = async function() {
     }
     if (selTeam) {
       var teamKey = selTeam.toLowerCase().replace(/[^a-z0-9]/g,'_');
-      await set(ref(db, 'eng_teams/'+teamKey), selTeam);
+      await set(ref(db, 'spain_argentina_teams/'+teamKey), selTeam);
     }
     var entry = {
       name:name, avatar:selAvatar, emoji:selEmoji, team:selTeam||'',
@@ -246,7 +246,7 @@ window.calcAndSaveScores = async function() {
     q8:opts.a8||'',
     q9:sc.a9,q10:sc.a10,q11:sc.a11,q12:sc.a12,q13:sc.a13
   };
-  await set(ref(db,'eng_answers'), ans);
+  await set(ref(db,'spain_argentina_answers'), ans);
   try {
     var snap = await get(ref(db,'spain_argentina_entries'));
     if (!snap.exists()) { alert('Ingen deltakere.'); return; }
@@ -283,7 +283,7 @@ window.calcAndSaveScores = async function() {
 };
 
 // Load saved answers
-onValue(ref(db,'eng_answers'), function(snap) {
+onValue(ref(db,'spain_argentina_answers'), function(snap) {
   if (!snap.exists()) return;
   var ans = snap.val(); if (!ans) return;
   showResultAnimation(ans.q3, ans.q1);
@@ -318,15 +318,15 @@ function showResultAnimation(resultKey, winner) {
   if (!el||!resultKey) { if(el) el.style.display='none'; return; }
   var p=resultKey.split('-');
   if(p.length!==2){el.style.display='none';return;}
-  var nor=parseInt(p[0]),eng=parseInt(p[1]);
-  if(isNaN(nor)||isNaN(eng)){el.style.display='none';return;}
+  var spa=parseInt(p[0]),arg=parseInt(p[1]);
+  if(isNaN(spa)||isNaN(arg)){el.style.display='none';return;}
   el.style.display='block';
 
-  if (winner==='Spania'||nor>eng) {
-    // Norway wins - celebration boats
+  if (winner==='Spania'||spa>arg) {
+    // Spania wins - celebration boats
     el.innerHTML='<svg width="100%" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">'
       +'<rect width="400" height="120" fill="#1a3a6a"/>'
-      +'<text x="200" y="20" text-anchor="middle" font-size="15" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">SPANIA VINNER! '+nor+'-'+eng+'</text>'
+      +'<text x="200" y="20" text-anchor="middle" font-size="15" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">SPANIA VINNER! '+spa+'-'+arg+'</text>'
       +'<rect x="20" y="0" width="6" height="10" fill="#EF3340" rx="1"><animate attributeName="y" dur="1.1s" repeatCount="indefinite" values="0;110"/><animate attributeName="opacity" dur="1.1s" repeatCount="indefinite" values="1;0"/></rect>'
       +'<rect x="70" y="0" width="6" height="10" fill="#FFD700" rx="1"><animate attributeName="y" dur="1.3s" repeatCount="indefinite" values="0;110" begin="0.3s"/><animate attributeName="opacity" dur="1.3s" repeatCount="indefinite" values="1;0" begin="0.3s"/></rect>'
       +'<rect x="130" y="0" width="6" height="10" fill="white" rx="1"><animate attributeName="y" dur="0.9s" repeatCount="indefinite" values="0;110" begin="0.1s"/><animate attributeName="opacity" dur="0.9s" repeatCount="indefinite" values="1;0" begin="0.1s"/></rect>'
@@ -353,12 +353,12 @@ function showResultAnimation(resultKey, winner) {
       +'</g>'
       +'</svg>';
 
-  } else if (winner==='Argentina'||eng>nor) {
-    // Argentina wins - British gentleman drinking tea + broken oar
+  } else if (winner==='Argentina'||arg>spa) {
+    // Argentina wins - celebration + broken oar
     el.innerHTML='<svg width="100%" height="130" viewBox="0 0 400 130" xmlns="http://www.w3.org/2000/svg">'
       +'<rect width="400" height="130" fill="#1a1a2e"/>'
-      +'<text x="200" y="18" text-anchor="middle" font-size="14" font-weight="900" fill="#CF081F" font-family="Arial,sans-serif">ARGENTINA VINNER '+nor+'-'+eng+'</text>'
-      // British gentleman left: bowler hat, suit, umbrella, tea cup
+      +'<text x="200" y="18" text-anchor="middle" font-size="14" font-weight="900" fill="#CF081F" font-family="Arial,sans-serif">ARGENTINA VINNER '+spa+'-'+arg+'</text>'
+      // Animated supporter left: hat, suit, umbrella, tea cup
       +'<g transform="translate(90,60)">'
       // Suit body
       +'<rect x="-18" y="8" width="36" height="38" rx="4" fill="#2a2a4a"/>'
@@ -415,7 +415,7 @@ function showResultAnimation(resultKey, winner) {
       +'</svg>';
 
   } else {
-    // Draw - nervous Norwegian supporter
+    // Draw - nervous supporter
     el.innerHTML='<svg width="100%" height="130" viewBox="0 0 400 130" xmlns="http://www.w3.org/2000/svg">'
       +'<rect width="400" height="130" fill="#1a1a2e"/>'
       +'<circle cx="30" cy="20" r="1.5" fill="white" opacity="0.4"/>'
@@ -423,7 +423,7 @@ function showResultAnimation(resultKey, winner) {
       +'<circle cx="150" cy="15" r="1.5" fill="white" opacity="0.4"/>'
       +'<circle cx="320" cy="12" r="1" fill="white" opacity="0.3"/>'
       +'<circle cx="370" cy="22" r="1.5" fill="white" opacity="0.4"/>'
-      +'<text x="200" y="18" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+nor+'-'+eng+' - STRAFFER?</text>'
+      +'<text x="200" y="18" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+spa+'-'+arg+' - STRAFFER?</text>'
       +'<g transform="translate(200,78)">'
       +'<animateTransform attributeName="transform" type="scale" dur="1.8s" repeatCount="indefinite" values="1,1;1.02,1.02;1,1" additive="sum"/>'
       +'<rect x="-22" y="10" width="44" height="32" rx="5" fill="#EF3340"/>'
