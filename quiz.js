@@ -61,9 +61,9 @@ var selAvatar = null;
 var selEmoji = '';
 var selTeam = null;
 var avNames = {
-  haaland:'Morata #7', odegaard:'Pedri #20', nusa:'Yamal #19',
-  nyland:'Unai Simon #23', berge:'Fabian Ruiz #8', sorloth:'Nico Williams #17',
-  bobb:'Dani Olmo #10', ajer:'Laporte #14',
+  haaland:'Morata #9', odegaard:'Pedri #8', nusa:'Yamal #11',
+  nyland:'Unai Simon #1', berge:'Fabian Ruiz #23', sorloth:'Nico Williams #20',
+  bobb:'Dani Olmo #22', ajer:'Laporte #6',
   messi:'Messi #10', alvarez:'Alvarez #9'
 };
 
@@ -167,7 +167,7 @@ window.toggleFasit = function() {
 window.submitEntry = async function() {
   if (isLocked()) { alert('Beklager - registreringsfristen er passert!'); return; }
   var name = document.getElementById('playerName').value.trim();
-  if (!name) { alert('Skriv inn navn forst!'); return; }
+  if (!name) { alert('Skriv inn navn først!'); return; }
   if (!selAvatar) { alert('Velg en spiller!'); return; }
   if (!opts.q1) { alert('Hvem tror du vinner?'); return; }
 
@@ -448,7 +448,7 @@ function showResultAnimation(resultKey, winner) {
       +'<ellipse cx="-20" cy="-5" rx="3" ry="4" fill="#88ccff" opacity="0"><animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0;0;1;0;0"/><animate attributeName="cy" dur="2s" repeatCount="indefinite" values="-5;-5;2;8;8"/></ellipse>'
       +'<ellipse cx="22" cy="-8" rx="3" ry="4" fill="#88ccff" opacity="0"><animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0;1;0;0;0" begin="1s"/><animate attributeName="cy" dur="2s" repeatCount="indefinite" values="-8;-1;5;5;5" begin="1s"/></ellipse>'
       +'</g>'
-      +'<text x="200" y="122" text-anchor="middle" font-size="10" fill="#666" font-family="Arial,sans-serif">Venter pa straffer...</text>'
+      +'<text x="200" y="122" text-anchor="middle" font-size="10" fill="#666" font-family="Arial,sans-serif">Venter på straffer...</text>'
       +'</svg>';
   }
 }
