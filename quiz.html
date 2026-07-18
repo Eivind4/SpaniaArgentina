@@ -344,7 +344,19 @@ select:focus{outline:none;border-color:#C60B1E;}
         <div class="hint">Mange lag har slått ballen over i motstanderens halvdel ved avspark i dette VM</div>
       </div>
 
-      <div class="section-div">🟡 MIDDELS — 2 poeng</div>
+      <div class="q-block">
+        <div class="q-lbl">⏱️ Blir det mål på overtid i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_otgoal"><button class="opt" onclick="selOpt('q_otgoal',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_otgoal',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">45+, 90+, 105+ eller 120+ — rekordmange mål på overtid i dette VM!</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🔄 Scorer en innbytter i løpet av full tid? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_subgoal"><button class="opt" onclick="selOpt('q_subgoal',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_subgoal',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Inkluderer ikke straffesparkkonkurranse. Gjor de bedre bytter enn England? 👀</div>
+      </div>
+
+            <div class="section-div">🟡 MIDDELS — 2 poeng</div>
 
       <div class="q-block">
         <div class="q-lbl">⚡ Mål i første omgang? <span class="pts p2">2 poeng</span></div>
@@ -602,6 +614,10 @@ select:focus{outline:none;border-color:#C60B1E;}
           <div class="admin-row"><span class="admin-lbl">🤾 Innkast 10 sek?</span>
             <div class="opts" id="a_throwin" style="margin:0;"><button class="opt" onclick="selOpt('a_throwin',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_throwin',this,'Nei')">❌ Nei</button></div></div>
 
+          <div class="admin-row"><span class="admin-lbl">⏱️ Mål på overtid?</span>
+            <div class="opts" id="a_otgoal" style="margin:0;"><button class="opt" onclick="selOpt('a_otgoal',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_otgoal',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🔄 Innbytter scorer?</span>
+            <div class="opts" id="a_subgoal" style="margin:0;"><button class="opt" onclick="selOpt('a_subgoal',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_subgoal',this,'Nei')">❌ Nei</button></div></div>
           <div class="admin-row"><span class="admin-lbl">⚡ Mål 1. omgang</span>
             <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_half',-1)">-</button><input class="sc-input" type="number" id="a_half-val" value="0" min="0" onchange="syncInput('a_half')" oninput="syncInput('a_half')"><button class="sc-btn" onclick="adjSc('a_half',1)">+</button></div></div>
           <div class="admin-row"><span class="admin-lbl">🟨 Gule kort</span>

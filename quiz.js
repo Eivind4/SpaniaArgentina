@@ -77,7 +77,7 @@ var avNames = {
 // Bool question keys
 var boolQs = ['q_cable','q_trump','q_dance','q_var','q_var_goal','q_pen',
                'q_argleg','q_espleg','q_messi','q_yamal','q_yamal_bro','q_1966',
-               'q_throwin','q_turnaro'];
+               'q_throwin','q_turnaro','q_otgoal','q_subgoal'];
 
 window.showTab = function(t) {
   document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('active'); });
@@ -205,7 +205,7 @@ window.submitEntry = async function() {
       q_var_goal:opts.q_var_goal||'',
       q_messi:opts.q_messi||'', q_yamal:opts.q_yamal||'',
       q_yamal_bro:opts.q_yamal_bro||'', q_1966:opts.q_1966||'',
-      q_throwin:opts.q_throwin||'',
+      q_throwin:opts.q_throwin||'', q_otgoal:opts.q_otgoal||'', q_subgoal:opts.q_subgoal||'',
       q_red:opts.q_red||'', q_turnaro:opts.q_turnaro||'',
       q_passacc:opts.q_passacc||'',
       q_res:sc.q_res_esp+'-'+sc.q_res_arg,
@@ -261,7 +261,7 @@ window.calcAndSaveScores = async function() {
     q_var_goal:opts.a_var_goal||'',
     q_messi:opts.a_messi||'', q_yamal:opts.a_yamal||'',
     q_yamal_bro:opts.a_yamal_bro||'', q_1966:opts.a_1966||'',
-    q_throwin:opts.a_throwin||'',
+    q_throwin:opts.a_throwin||'', q_otgoal:opts.a_otgoal||'', q_subgoal:opts.a_subgoal||'',
     q_red:opts.a_red||'', q_turnaro:opts.a_turnaro||'',
     q_passacc:opts.a_passacc||'',
     q_res:sc.a_res_esp+'-'+sc.a_res_arg,
@@ -597,7 +597,8 @@ window.showPlayerDetail = function(name) {
     ['Straffe ordinaer tid',e.q_pen],['ARG-legende sett',e.q_argleg],
     ['ESP-legende sett',e.q_espleg],['Yamal scorer',e.q_yamal],
     ['Messi mal/assist',e.q_messi],['Yamal scorer/assist',e.q_yamal],
-    ['Innkast 10 sek',e.q_throwin],['Rodt kort',e.q_red],
+    ['Innkast 10 sek',e.q_throwin],
+    ['Mal pa overtid',e.q_otgoal],['Innbytter scorer',e.q_subgoal],['Rodt kort',e.q_red],
     ['Argentina snur',e.q_turnaro],['Hoyest pasningsnoyaktighet',e.q_passacc],
     ['Mal 1. omgang',e.q_half],['Gule kort',e.q_yellow],
     ['Kampens 1. mal',e.q_min],
