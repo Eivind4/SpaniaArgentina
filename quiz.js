@@ -395,20 +395,24 @@ function showResultAnimation(resultKey, winner) {
       +'</svg>';
 
   } else if (winner==='ARG'||arg>esp) {
-    // Argentina wins - blue/white confetti + Messi silhouette
-    el.innerHTML='<svg width="100%" height="110" viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">'
-      +'<rect width="400" height="110" fill="#1a1a2e"/>'
-      +'<text x="200" y="20" text-anchor="middle" font-size="14" font-weight="900" fill="#74ACDF" font-family="Arial,sans-serif">ARGENTINA VINNER! '+esp+'-'+arg+'</text>'
-      +'<rect x="20" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="1.1s" repeatCount="indefinite" values="0;110"/><animate attributeName="opacity" dur="1.1s" repeatCount="indefinite" values="1;0"/></rect>'
-      +'<rect x="70" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.4s" repeatCount="indefinite" values="0;110" begin="0.3s"/><animate attributeName="opacity" dur="1.4s" repeatCount="indefinite" values="1;0" begin="0.3s"/></rect>'
-      +'<rect x="130" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="0.9s" repeatCount="indefinite" values="0;110" begin="0.1s"/><animate attributeName="opacity" dur="0.9s" repeatCount="indefinite" values="1;0" begin="0.1s"/></rect>'
-      +'<rect x="200" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.2s" repeatCount="indefinite" values="0;110" begin="0.5s"/><animate attributeName="opacity" dur="1.2s" repeatCount="indefinite" values="1;0" begin="0.5s"/></rect>'
-      +'<rect x="270" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="1.0s" repeatCount="indefinite" values="0;110" begin="0.2s"/><animate attributeName="opacity" dur="1.0s" repeatCount="indefinite" values="1;0" begin="0.2s"/></rect>'
-      +'<rect x="340" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.3s" repeatCount="indefinite" values="0;110" begin="0.8s"/><animate attributeName="opacity" dur="1.3s" repeatCount="indefinite" values="1;0" begin="0.8s"/></rect>'
-      // Player raising trophy
-      +'<g transform="translate(200,78)">'
+    // Argentina wins - Messi raising trophy + GOAT + jersey #10
+    el.innerHTML='<svg width="100%" height="140" viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg">'
+      +'<rect width="400" height="140" fill="#1a1a2e"/>'
+      +'<text x="200" y="18" text-anchor="middle" font-size="14" font-weight="900" fill="#74ACDF" font-family="Arial,sans-serif">'+String.fromCodePoint(0x1F1E6,0x1F1F7)+' ARGENTINA VINNER! '+esp+'-'+arg+'</text>'
+      // Blue/white confetti
+      +'<rect x="20" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="1.1s" repeatCount="indefinite" values="0;140"/><animate attributeName="opacity" dur="1.1s" repeatCount="indefinite" values="1;0"/></rect>'
+      +'<rect x="70" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.4s" repeatCount="indefinite" values="0;140" begin="0.3s"/><animate attributeName="opacity" dur="1.4s" repeatCount="indefinite" values="1;0" begin="0.3s"/></rect>'
+      +'<rect x="140" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="0.9s" repeatCount="indefinite" values="0;140" begin="0.1s"/><animate attributeName="opacity" dur="0.9s" repeatCount="indefinite" values="1;0" begin="0.1s"/></rect>'
+      +'<rect x="210" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.2s" repeatCount="indefinite" values="0;140" begin="0.5s"/><animate attributeName="opacity" dur="1.2s" repeatCount="indefinite" values="1;0" begin="0.5s"/></rect>'
+      +'<rect x="280" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="1.0s" repeatCount="indefinite" values="0;140" begin="0.2s"/><animate attributeName="opacity" dur="1.0s" repeatCount="indefinite" values="1;0" begin="0.2s"/></rect>'
+      +'<rect x="350" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.3s" repeatCount="indefinite" values="0;140" begin="0.8s"/><animate attributeName="opacity" dur="1.3s" repeatCount="indefinite" values="1;0" begin="0.8s"/></rect>'
+      // Player raising trophy (centre)
+      +'<g transform="translate(170,90)">'
       // Body
       +'<rect x="-12" y="-10" width="24" height="28" rx="4" fill="#74ACDF"/>'
+      // Blue stripes on white - ARG kit
+      +'<rect x="-12" y="-10" width="7" height="28" fill="white" rx="2"/>'
+      +'<rect x="5" y="-10" width="7" height="28" fill="white" rx="2"/>'
       // Arms up
       +'<rect x="-28" y="-30" width="10" height="22" rx="4" fill="#74ACDF" transform="rotate(-20 -23 -19)"/>'
       +'<rect x="18" y="-30" width="10" height="22" rx="4" fill="#74ACDF" transform="rotate(20 23 -19)"/>'
@@ -417,196 +421,109 @@ function showResultAnimation(resultKey, winner) {
       // Hair
       +'<path d="M-11,-28 Q-10,-38 0,-40 Q10,-38 11,-28 Q8,-32 0,-32 Q-8,-32 -11,-28Z" fill="#5A3010"/>'
       // Beard
-      +'<path d="M-8,-12 Q-6,-8 0,-7 Q6,-8 8,-12" fill="#5A3010" opacity="0.6"/>'
-      // Trophy held high
-      +'<g transform="translate(0,-50)">'
-      +'<animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" values="0,-50;0,-55;0,-50"/>'
-      +'<rect x="-8" y="18" width="16" height="3" rx="1" fill="#B8860B"/>'
-      +'<rect x="-5" y="12" width="10" height="7" rx="1" fill="#DAA520"/>'
-      +'<rect x="-2" y="6" width="4" height="7" rx="1" fill="#DAA520"/>'
-      +'<path d="M-8,-8 Q-10,4 -5,7 L5,7 Q10,4 8,-8 Z" fill="#FFD700"/>'
-      +'<path d="M-8,-4 Q-14,-4 -14,2 Q-14,6 -8,6" fill="none" stroke="#DAA520" stroke-width="2" stroke-linecap="round"/>'
-      +'<path d="M8,-4 Q14,-4 14,2 Q14,6 8,6" fill="none" stroke="#DAA520" stroke-width="2" stroke-linecap="round"/>'
-      +'</g>'
-      +'</g>'
-      +'</svg>';
-  } else {
-    // Draw - nervous animation
-    el.innerHTML='<svg width="100%" height="90" viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">'
-      +'<rect width="400" height="90" fill="#1a1a2e"/>'
-      +'<text x="200" y="20" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+esp+'-'+arg+' - STRAFFER?</text>'
+      +'<path d="M-8,-14 Q-7,-9 0,-8 Q7,-9 8,-14 Q5,-10 0,-10 Q-5,-10 -8,-14Z" fill="#5A3010" opacity="0.7"/>'
+      // Eyes
+      +'<ellipse cx="-4" cy="-23" rx="2" ry="2" fill="#333"/>'
+      +'<ellipse cx="4" cy="-23" rx="2" ry="2" fill="#333"/>'
+      // Trophy held high - bouncing
       +'<g>'
-      +'<animateTransform attributeName="transform" type="translate" dur="0.15s" repeatCount="indefinite" values="0,0;2,0;-2,0;1,0;-1,0;0,0"/>'
-      +'<rect x="130" y="55" width="140" height="8" rx="3" fill="#DAA520" opacity="0.8"/>'
-      // Two players from each team staring each other down
-      +'<circle cx="160" cy="42" r="8" fill="#C60B1E"/>'
-      +'<circle cx="160" cy="42" r="6" fill="#F5DEB3"/>'
-      +'<circle cx="240" cy="42" r="8" fill="#74ACDF"/>'
-      +'<circle cx="240" cy="42" r="6" fill="#F5DEB3"/>'
-      +'<text x="200" y="46" text-anchor="middle" font-size="16">👀</text>'
+      +'<animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" values="0,0;0,-6;0,0"/>'
+      +'<rect x="-9" y="-54" width="18" height="4" rx="1" fill="#B8860B"/>'
+      +'<rect x="-6" y="-60" width="12" height="7" rx="1" fill="#DAA520"/>'
+      +'<rect x="-3" y="-68" width="6" height="10" rx="1" fill="#DAA520"/>'
+      +'<path d="M-10,-80 Q-12,-64 -6,-60 L6,-60 Q12,-64 10,-80 Z" fill="#FFD700"/>'
+      +'<path d="M-10,-74 Q-18,-74 -18,-66 Q-18,-62 -10,-62" fill="none" stroke="#DAA520" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<path d="M10,-74 Q18,-74 18,-66 Q18,-62 10,-62" fill="none" stroke="#DAA520" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<text x="0" y="-68" text-anchor="middle" font-size="8" fill="#B8860B">&#9733;</text>'
       +'</g>'
-      +'<text x="200" y="80" text-anchor="middle" font-size="10" fill="#666" font-family="Arial,sans-serif">Straffer avgjor...</text>'
+      +'</g>'
+      // GOAT (right side)
+      +'<g transform="translate(310,100)">'
+      +'<animateTransform attributeName="transform" type="translate" dur="2s" repeatCount="indefinite" values="310,100;310,96;310,100"/>'
+      // Body
+      +'<ellipse cx="0" cy="10" rx="22" ry="14" fill="white"/>'
+      // Head
+      +'<ellipse cx="24" cy="-2" rx="14" ry="11" fill="white"/>'
+      // Eye
+      +'<ellipse cx="30" cy="-4" rx="2.5" ry="2" fill="#333"/>'
+      +'<ellipse cx="30.5" cy="-4.2" rx="1" ry="1.2" fill="white"/>'
+      // Nostril
+      +'<ellipse cx="36" cy="0" rx="1.5" ry="1" fill="#ccc"/>'
+      // Horns
+      +'<path d="M18,-10 Q14,-22 18,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<path d="M24,-12 Q24,-24 28,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
+      // Beard
+      +'<path d="M30,6 Q32,14 28,18" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"/>'
+      // Legs
+      +'<rect x="-14" y="22" width="6" height="14" rx="3" fill="white"/>'
+      +'<rect x="-4" y="22" width="6" height="14" rx="3" fill="white"/>'
+      +'<rect x="6" y="22" width="6" height="14" rx="3" fill="white"/>'
+      +'<rect x="16" y="22" width="6" height="14" rx="3" fill="white"/>'
+      // Hooves
+      +'<rect x="-14" y="34" width="6" height="4" rx="1" fill="#555"/>'
+      +'<rect x="-4" y="34" width="6" height="4" rx="1" fill="#555"/>'
+      +'<rect x="6" y="34" width="6" height="4" rx="1" fill="#555"/>'
+      +'<rect x="16" y="34" width="6" height="4" rx="1" fill="#555"/>'
+      // Tail
+      +'<path d="M-22,8 Q-32,4 -30,-4" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>'
+      // Ear
+      +'<ellipse cx="14" cy="-10" rx="5" ry="8" fill="white" transform="rotate(-20 14 -10)"/>'
+      +'<ellipse cx="14" cy="-10" rx="3" ry="5" fill="#ffcccc" transform="rotate(-20 14 -10)"/>'
+      +'</g>'
+      // Jersey #10 (left side)
+      +'<g transform="translate(62,95)">'
+      // Jersey body
+      +'<rect x="-20" y="-15" width="40" height="42" rx="5" fill="#74ACDF"/>'
+      // White stripes
+      +'<rect x="-20" y="-15" width="12" height="42" fill="white" rx="3"/>'
+      +'<rect x="8" y="-15" width="12" height="42" fill="white" rx="3"/>'
+      // Collar
+      +'<path d="M-8,-15 Q0,-8 8,-15" fill="none" stroke="#74ACDF" stroke-width="3"/>'
+      // Sleeves
+      +'<rect x="-34" y="-12" width="15" height="10" rx="4" fill="#74ACDF"/>'
+      +'<rect x="19" y="-12" width="15" height="10" rx="4" fill="#74ACDF"/>'
+      // Number 10
+      +'<text x="0" y="18" text-anchor="middle" font-size="20" font-weight="900" fill="white" font-family="Arial,sans-serif" opacity="0.95">10</text>'
+      // Gentle sway
+      +'<animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="-3 62 95;3 62 95;-3 62 95"/>'
+      +'</g>'
+      +'</svg>';
+
+  } else {
+    // Draw - calm two flags + trophy
+    el.innerHTML='<svg width="100%" height="110" viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">'
+      +'<rect width="400" height="110" fill="#1a1a2e"/>'
+      +'<text x="200" y="20" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+esp+'-'+arg+' - STRAFFER?</text>'
+      // ESP flag on pole (left)
+      +'<g transform="translate(90,55)">'
+      +'<animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite" values="-3 90 55;3 90 55;-3 90 55"/>'
+      +'<line x1="0" y1="-30" x2="0" y2="35" stroke="#888" stroke-width="2"/>'
+      +'<rect x="1" y="-30" width="36" height="10" fill="#C60B1E" rx="1"/>'
+      +'<rect x="1" y="-20" width="36" height="10" fill="#FFD700"/>'
+      +'<rect x="1" y="-10" width="36" height="10" fill="#C60B1E" rx="1"/>'
+      +'<circle cx="0" cy="-32" r="3" fill="#FFD700"/>'
+      +'</g>'
+      // Trophy centre
+      +'<g transform="translate(200,65)">'
+      +'<rect x="-12" y="20" width="24" height="5" rx="2" fill="#B8860B"/>'
+      +'<rect x="-8" y="13" width="16" height="8" rx="1" fill="#DAA520"/>'
+      +'<rect x="-4" y="4" width="8" height="10" rx="1" fill="#DAA520"/>'
+      +'<path d="M-14,-14 Q-16,5 -8,8 L8,8 Q16,5 14,-14 Z" fill="#FFD700"/>'
+      +'<path d="M-14,-8 Q-22,-8 -22,0 Q-22,5 -14,5" fill="none" stroke="#DAA520" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M14,-8 Q22,-8 22,0 Q22,5 14,5" fill="none" stroke="#DAA520" stroke-width="3" stroke-linecap="round"/>'
+      +'<text x="0" y="-2" text-anchor="middle" font-size="9" fill="#B8860B">&#9733;</text>'
+      +'<text x="0" y="36" text-anchor="middle" font-size="9" fill="#888" font-family="Arial,sans-serif">Straffer avgjor...</text>'
+      +'</g>'
+      // ARG flag on pole (right)
+      +'<g transform="translate(280,55)">'
+      +'<animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite" values="3 280 55;-3 280 55;3 280 55"/>'
+      +'<line x1="0" y1="-30" x2="0" y2="35" stroke="#888" stroke-width="2"/>'
+      +'<rect x="1" y="-30" width="36" height="10" fill="#74ACDF" rx="1"/>'
+      +'<rect x="1" y="-20" width="36" height="10" fill="white"/>'
+      +'<circle cx="19" cy="-15" r="4" fill="#F6B40E"/>'
+      +'<rect x="1" y="-10" width="36" height="10" fill="#74ACDF" rx="1"/>'
+      +'<circle cx="0" cy="-32" r="3" fill="#FFD700"/>'
+      +'</g>'
       +'</svg>';
   }
 }
-
-// Avatar SVGs
-var avSVGs = {
-  yamal:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">19</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#8B5A2B"/><path d="M16,27 Q15,11 28,10 Q41,11 40,27 Q37,17 28,17 Q19,17 16,27Z" fill="#1a0a00"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  rodri:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">16</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  pedri:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">8</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  williams:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">17</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#8B5A2B"/><path d="M16,27 Q15,11 28,10 Q41,11 40,27 Q37,17 28,17 Q19,17 16,27Z" fill="#1a0a00"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  carvajal:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">2</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  laporte:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">14</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  fabianruiz:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">6</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  oyarzabal:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">11</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#333"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  messi:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">10</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  martinez:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">23</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  alvarez:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">9</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  macallister:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">5</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  lmartinez:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">22</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  depaul:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">7</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  molina:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">26</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>',
-  tagliafico:'<svg width="44" height="54" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">3</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>'
-};
-
-var medals=['🥇','🥈','🥉'];
-var lbMode='total';
-var teamFilter='';
-var allEntries=[];
-
-onValue(ref(db,'spain_entries'), function(snap) {
-  allEntries=[];
-  if(snap.exists()) snap.forEach(function(c){ allEntries.push(c.val()); });
-  renderLB();
-  populatePlayerSelect();
-  populateTeamFilter();
-});
-
-window.setLbMode = function(mode) {
-  lbMode=mode;
-  document.querySelectorAll('.lb-tab').forEach(function(b){ b.classList.remove('active'); });
-  document.getElementById('lbt-'+mode).classList.add('active');
-  var fw=document.getElementById('teamFilterWrap');
-  if(fw) fw.style.display=mode==='team'?'block':'none';
-  renderLB();
-};
-
-window.setTeamFilter = function(val) {
-  teamFilter=val;
-  renderLB();
-};
-
-function populateTeamFilter() {
-  var sel=document.getElementById('teamFilter');
-  if(!sel) return;
-  var current=sel.value;
-  sel.innerHTML='<option value="">-- Alle lag --</option>';
-  var teams=[];
-  allEntries.forEach(function(e){ if(e.team&&teams.indexOf(e.team)<0) teams.push(e.team); });
-  teams.sort().forEach(function(t){
-    var opt=document.createElement('option'); opt.value=t; opt.textContent='Lag: '+t; sel.appendChild(opt);
-  });
-  if(current) sel.value=current;
-}
-
-function renderLB() {
-  var list=document.getElementById('lbList');
-  var empty=document.getElementById('lbEmpty');
-  if(!list) return;
-  if(!allEntries.length){ list.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display='none';
-
-  if(lbMode==='total') {
-    var rows=allEntries.slice().sort(function(a,b){return b.pts-a.pts;});
-    renderRows(list,rows,function(e){return (avNames[e.avatar]||'')+(e.team?' · Lag: '+e.team:'');});
-  } else if(lbMode==='team') {
-    var filtered=teamFilter?allEntries.filter(function(e){return e.team===teamFilter;}):allEntries.slice();
-    filtered.sort(function(a,b){return b.pts-a.pts;});
-    renderRows(list,filtered,function(e){return (avNames[e.avatar]||'')+(e.team?' · Lag: '+e.team:'Ingen lag');});
-    document.getElementById('lb-info').textContent=(teamFilter?'Lag: '+teamFilter:'Alle lag')+' - '+filtered.length+' deltakere - '+new Date().toLocaleTimeString('no-NO');
-    return;
-  } else if(lbMode==='teamavg') {
-    var teamTot={};
-    allEntries.forEach(function(e){
-      var t=e.team||'__ingen__';
-      if(!teamTot[t]) teamTot[t]={team:t,total:0,count:0};
-      teamTot[t].total+=e.pts; teamTot[t].count+=1;
-    });
-    var rows=Object.values(teamTot).map(function(t){
-      return {name:t.team==='__ingen__'?'Ingen lag':'Lag: '+t.team,pts:Math.round(t.total/t.count*10)/10,count:t.count};
-    }).sort(function(a,b){return b.pts-a.pts;});
-    list.innerHTML=rows.map(function(r,i){
-      var cls=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-      var rank=medals[i]||(i+1)+'.';
-      return '<div class="lb-row '+cls+'"><div class="lb-rank">'+rank+'</div>'
-        +'<div style="font-size:28px;width:48px;text-align:center;">👥</div>'
-        +'<div style="flex:1;min-width:0;"><div class="lb-name">'+r.name+'</div>'
-        +'<div class="lb-sub">'+r.count+' deltakere - snitt</div></div>'
-        +'<div class="lb-pts">'+r.pts+' pts</div></div>';
-    }).join('');
-    document.getElementById('lb-info').textContent='Live - '+rows.length+' lag';
-    return;
-  }
-}
-
-function renderRows(list,rows,subFn) {
-  var maxPts=60;
-  list.innerHTML=rows.map(function(e,i){
-    var cls=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-    var rank=medals[i]||(i+1)+'.';
-    var bar=Math.min(100,Math.round(e.pts/maxPts*100));
-    var av=(e.avatar&&avSVGs[e.avatar])?avSVGs[e.avatar]:'<div style="font-size:24px;text-align:center;">'+(e.emoji||'⚽')+'</div>';
-    return '<div class="lb-row '+cls+'"><div class="lb-rank">'+rank+'</div>'
-      +'<div style="width:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+av+'</div>'
-      +'<div style="flex:1;min-width:0;"><div class="lb-name">'+e.name+'</div>'
-      +'<div class="lb-sub">'+subFn(e)+'</div>'
-      +'<div style="background:#e0e0e0;border-radius:4px;height:5px;margin-top:4px;overflow:hidden;">'
-      +'<div style="background:#C60B1E;height:5px;width:'+bar+'%;border-radius:4px;"></div>'
-      +'</div></div><div class="lb-pts">'+e.pts+' pts</div></div>';
-  }).join('');
-  document.getElementById('lb-info').textContent='Live - '+rows.length+' deltakere - '+new Date().toLocaleTimeString('no-NO');
-}
-
-function populatePlayerSelect() {
-  var sel=document.getElementById('playerSelect');
-  var card=document.getElementById('playerDetailCard');
-  if(!sel) return;
-  if(!allEntries.length){if(card)card.style.display='none';return;}
-  if(card) card.style.display='block';
-  var current=sel.value;
-  sel.innerHTML='<option value="">-- Velg spiller --</option>';
-  allEntries.slice().sort(function(a,b){return a.name.localeCompare(b.name);}).forEach(function(e){
-    var opt=document.createElement('option');
-    opt.value=e.name; opt.textContent=e.name+' ('+e.pts+' pts)'+(e.team?' · '+e.team:'');
-    sel.appendChild(opt);
-  });
-  if(current) sel.value=current;
-}
-
-window.showPlayerDetail = function(name) {
-  var body=document.getElementById('playerDetailBody');
-  if(!body||!name){if(body)body.innerHTML='';return;}
-  var e=allEntries.find(function(x){return x.name===name;});
-  if(!e){body.innerHTML='';return;}
-  var rows=[
-    ['Spiller',avNames[e.avatar]||e.avatar],['Lag',e.team||'-'],
-    ['Hvem vinner',e.q_winner],['Resultat',e.q_res],
-    ['Kamerakabel truffet',e.q_cable],['Trump ved Infantino',e.q_trump],
-    ['Trump-dansen',e.q_dance],['VAR omgjort',e.q_var],
-    ['Straffe ordinaer tid',e.q_pen],['ARG-legende sett',e.q_argleg],
-    ['ESP-legende sett',e.q_espleg],['Yamal scorer',e.q_yamal],
-    ['Messi mal/assist',e.q_messi],['Yamal scorer/assist',e.q_yamal],
-    ['Innkast 10 sek',e.q_throwin],
-    ['Mal pa overtid',e.q_otgoal],['Innbytter scorer',e.q_subgoal],['Rodt kort',e.q_red],
-    ['Argentina snur',e.q_turnaro],['Hoyest pasningsnoyaktighet',e.q_passacc],
-    ['Mal 1. omgang',e.q_half],['Gule kort',e.q_yellow],
-    ['Kampens 1. mal',e.q_min],
-    ['Pasninger Spania',e.q_passes_esp],['Pasninger Argentina',e.q_passes_arg],
-    ['Corners',e.q_corners],['Skudd pa mal',e.q_shots],['Frispark',e.q_free],
-    ['Poeng',e.pts+' pts'],
-  ];
-  body.innerHTML=rows.map(function(r){
-    return '<div class="detail-row"><span class="detail-label">'+r[0]+': </span><span class="detail-val">'+(r[1]!==undefined?r[1]:'-')+'</span></div>';
-  }).join('');
-};
