@@ -399,7 +399,7 @@ function showResultAnimation(resultKey, winner) {
       +'</svg>';
 
   } else if (winner==='ARG'||arg>esp) {
-    // Argentina wins - Messi raising trophy + GOAT + jersey #10
+    // Argentina wins - player raising trophy (centre) + GOAT with jersey #10 on its back (right)
     el.innerHTML='<svg width="100%" height="140" viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg">'
       +'<rect width="400" height="140" fill="#1a1a2e"/>'
       +'<text x="200" y="18" text-anchor="middle" font-size="14" font-weight="900" fill="#74ACDF" font-family="Arial,sans-serif">'+String.fromCodePoint(0x1F1E6,0x1F1F7)+' ARGENTINA VINNER! '+esp+'-'+arg+'</text>'
@@ -410,28 +410,20 @@ function showResultAnimation(resultKey, winner) {
       +'<rect x="210" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.2s" repeatCount="indefinite" values="0;140" begin="0.5s"/><animate attributeName="opacity" dur="1.2s" repeatCount="indefinite" values="1;0" begin="0.5s"/></rect>'
       +'<rect x="280" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="1.0s" repeatCount="indefinite" values="0;140" begin="0.2s"/><animate attributeName="opacity" dur="1.0s" repeatCount="indefinite" values="1;0" begin="0.2s"/></rect>'
       +'<rect x="350" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.3s" repeatCount="indefinite" values="0;140" begin="0.8s"/><animate attributeName="opacity" dur="1.3s" repeatCount="indefinite" values="1;0" begin="0.8s"/></rect>'
-      // Player raising trophy (centre)
-      +'<g transform="translate(170,90)">'
-      // Body
+      // Player raising trophy (left-centre)
+      +'<g transform="translate(140,90)">'
       +'<rect x="-12" y="-10" width="24" height="28" rx="4" fill="#74ACDF"/>'
-      // Blue stripes on white - ARG kit
       +'<rect x="-12" y="-10" width="7" height="28" fill="white" rx="2"/>'
       +'<rect x="5" y="-10" width="7" height="28" fill="white" rx="2"/>'
-      // Arms up
       +'<rect x="-28" y="-30" width="10" height="22" rx="4" fill="#74ACDF" transform="rotate(-20 -23 -19)"/>'
       +'<rect x="18" y="-30" width="10" height="22" rx="4" fill="#74ACDF" transform="rotate(20 23 -19)"/>'
-      // Head
       +'<ellipse cx="0" cy="-22" rx="12" ry="13" fill="#F5DEB3"/>'
-      // Hair
       +'<path d="M-11,-28 Q-10,-38 0,-40 Q10,-38 11,-28 Q8,-32 0,-32 Q-8,-32 -11,-28Z" fill="#5A3010"/>'
-      // Beard
       +'<path d="M-8,-14 Q-7,-9 0,-8 Q7,-9 8,-14 Q5,-10 0,-10 Q-5,-10 -8,-14Z" fill="#5A3010" opacity="0.7"/>'
-      // Eyes
       +'<ellipse cx="-4" cy="-23" rx="2" ry="2" fill="#333"/>'
       +'<ellipse cx="4" cy="-23" rx="2" ry="2" fill="#333"/>'
-      // Trophy held high - bouncing
-      +'<g>'
-      +'<animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" values="0,0;0,-6;0,0"/>'
+      // Trophy bouncing
+      +'<g><animateTransform attributeName="transform" type="translate" dur="1.5s" repeatCount="indefinite" values="0,0;0,-6;0,0"/>'
       +'<rect x="-9" y="-54" width="18" height="4" rx="1" fill="#B8860B"/>'
       +'<rect x="-6" y="-60" width="12" height="7" rx="1" fill="#DAA520"/>'
       +'<rect x="-3" y="-68" width="6" height="10" rx="1" fill="#DAA520"/>'
@@ -441,54 +433,42 @@ function showResultAnimation(resultKey, winner) {
       +'<text x="0" y="-68" text-anchor="middle" font-size="8" fill="#B8860B">&#9733;</text>'
       +'</g>'
       +'</g>'
-      // GOAT (right side)
-      +'<g transform="translate(310,100)">'
-      +'<animateTransform attributeName="transform" type="translate" dur="2s" repeatCount="indefinite" values="310,100;310,96;310,100"/>'
-      // Body
-      +'<ellipse cx="0" cy="10" rx="22" ry="14" fill="white"/>'
-      // Head
-      +'<ellipse cx="24" cy="-2" rx="14" ry="11" fill="white"/>'
-      // Eye
-      +'<ellipse cx="30" cy="-4" rx="2.5" ry="2" fill="#333"/>'
-      +'<ellipse cx="30.5" cy="-4.2" rx="1" ry="1.2" fill="white"/>'
-      // Nostril
-      +'<ellipse cx="36" cy="0" rx="1.5" ry="1" fill="#ccc"/>'
+      // GOAT with jersey draped on its back (right side)
+      +'<g transform="translate(305,88)">'
+      +'<animateTransform attributeName="transform" type="translate" dur="2s" repeatCount="indefinite" values="305,88;305,84;305,88"/>'
+      // Goat body
+      +'<ellipse cx="0" cy="18" rx="28" ry="18" fill="white"/>'
+      // Jersey draped on back - sits on top of body
+      +'<rect x="-22" y="4" width="44" height="22" rx="4" fill="#74ACDF"/>'
+      +'<rect x="-22" y="4" width="13" height="22" fill="white" rx="3"/>'
+      +'<rect x="9" y="4" width="13" height="22" fill="white" rx="3"/>'
+      +'<text x="0" y="22" text-anchor="middle" font-size="16" font-weight="900" fill="white" font-family="Arial,sans-serif">10</text>'
+      // Goat head (right side)
+      +'<ellipse cx="30" cy="4" rx="16" ry="13" fill="white"/>'
       // Horns
-      +'<path d="M18,-10 Q14,-22 18,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
-      +'<path d="M24,-12 Q24,-24 28,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<path d="M24,-8 Q20,-22 24,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<path d="M32,-10 Q32,-24 36,-26" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
+      // Eye
+      +'<ellipse cx="38" cy="2" rx="2.5" ry="2" fill="#333"/>'
+      +'<ellipse cx="38.5" cy="1.8" rx="1" ry="1" fill="white"/>'
+      // Nostril
+      +'<ellipse cx="44" cy="7" rx="1.5" ry="1" fill="#ccc"/>'
       // Beard
-      +'<path d="M30,6 Q32,14 28,18" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"/>'
-      // Legs
-      +'<rect x="-14" y="22" width="6" height="14" rx="3" fill="white"/>'
-      +'<rect x="-4" y="22" width="6" height="14" rx="3" fill="white"/>'
-      +'<rect x="6" y="22" width="6" height="14" rx="3" fill="white"/>'
-      +'<rect x="16" y="22" width="6" height="14" rx="3" fill="white"/>'
-      // Hooves
-      +'<rect x="-14" y="34" width="6" height="4" rx="1" fill="#555"/>'
-      +'<rect x="-4" y="34" width="6" height="4" rx="1" fill="#555"/>'
-      +'<rect x="6" y="34" width="6" height="4" rx="1" fill="#555"/>'
-      +'<rect x="16" y="34" width="6" height="4" rx="1" fill="#555"/>'
-      // Tail
-      +'<path d="M-22,8 Q-32,4 -30,-4" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M38,14 Q40,22 36,26" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"/>'
       // Ear
-      +'<ellipse cx="14" cy="-10" rx="5" ry="8" fill="white" transform="rotate(-20 14 -10)"/>'
-      +'<ellipse cx="14" cy="-10" rx="3" ry="5" fill="#ffcccc" transform="rotate(-20 14 -10)"/>'
-      +'</g>'
-      // Jersey #10 (above goat, right side)
-      +'<g transform="translate(305,42)">'
-      // Jersey body
-      +'<rect x="-20" y="-15" width="40" height="42" rx="5" fill="#74ACDF"/>'
-      // White stripes
-      +'<rect x="-20" y="-15" width="12" height="42" fill="white" rx="3"/>'
-      +'<rect x="8" y="-15" width="12" height="42" fill="white" rx="3"/>'
-      // Collar
-      +'<path d="M-8,-15 Q0,-8 8,-15" fill="none" stroke="#74ACDF" stroke-width="3"/>'
-      // Sleeves
-      +'<rect x="-34" y="-12" width="15" height="10" rx="4" fill="#74ACDF"/>'
-      +'<rect x="19" y="-12" width="15" height="10" rx="4" fill="#74ACDF"/>'
-      // Number 10
-      +'<text x="0" y="18" text-anchor="middle" font-size="20" font-weight="900" fill="white" font-family="Arial,sans-serif" opacity="0.95">10</text>'
-      // Gentle sway
+      +'<ellipse cx="18" cy="-4" rx="5" ry="8" fill="white" transform="rotate(-25 18 -4)"/>'
+      +'<ellipse cx="18" cy="-4" rx="3" ry="5" fill="#ffcccc" transform="rotate(-25 18 -4)"/>'
+      // Legs
+      +'<rect x="-18" y="34" width="7" height="16" rx="3" fill="white"/>'
+      +'<rect x="-7" y="34" width="7" height="16" rx="3" fill="white"/>'
+      +'<rect x="4" y="34" width="7" height="16" rx="3" fill="white"/>'
+      +'<rect x="15" y="34" width="7" height="16" rx="3" fill="white"/>'
+      +'<rect x="-18" y="48" width="7" height="4" rx="1" fill="#555"/>'
+      +'<rect x="-7" y="48" width="7" height="4" rx="1" fill="#555"/>'
+      +'<rect x="4" y="48" width="7" height="4" rx="1" fill="#555"/>'
+      +'<rect x="15" y="48" width="7" height="4" rx="1" fill="#555"/>'
+      // Tail
+      +'<path d="M-28,14 Q-38,10 -36,2" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>'
       +'</g>'
       +'</svg>';
 
