@@ -473,64 +473,86 @@ function showResultAnimation(resultKey, winner) {
       +'</svg>';
 
   } else {
-    // Draw - nervous eyes waiting for penalties
+    // Draw - nervous eyes: left=Spain (red/yellow iris), right=Argentina (blue/white iris)
     el.innerHTML='<svg width="100%" height="110" viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">'
       +'<rect width="400" height="110" fill="#1a1a2e"/>'
       +'<text x="200" y="18" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+esp+'-'+arg+' - STRAFFER?</text>'
-      // Left eye pair (ESP red tinge)
-      +'<g transform="translate(120,62)">'
-      // Eye whites
-      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white"/>'
-      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white"/>'
-      // Irises - darting left/right
-      +'<ellipse cx="-18" cy="0" rx="10" ry="12" fill="#5D8A3C">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-22;-14;-22"/>'
+      // === SPAIN eyes (left) - red sclera tinge, yellow/red iris ===
+      +'<g transform="translate(112,62)">'
+      // Eye whites (slight warm tinge)
+      +'<ellipse cx="-22" cy="0" rx="24" ry="19" fill="#fff8f0"/>'
+      +'<ellipse cx="22" cy="0" rx="24" ry="19" fill="#fff8f0"/>'
+      // Irises - red with yellow ring (Spanish flag colors)
+      +'<ellipse cx="-22" cy="0" rx="12" ry="14" fill="#C60B1E">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-26;-18;-26"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="10" ry="12" fill="#5D8A3C">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="14;22;14"/>'
+      +'<ellipse cx="22" cy="0" rx="12" ry="14" fill="#C60B1E">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="18;26;18"/>'
+      +'</ellipse>'
+      // Yellow ring inside iris
+      +'<ellipse cx="-22" cy="0" rx="7" ry="9" fill="#FFD700">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-26;-18;-26"/>'
+      +'</ellipse>'
+      +'<ellipse cx="22" cy="0" rx="7" ry="9" fill="#FFD700">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="18;26;18"/>'
       +'</ellipse>'
       // Pupils
-      +'<ellipse cx="-18" cy="0" rx="5" ry="6" fill="#111">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-22;-14;-22"/>'
+      +'<ellipse cx="-22" cy="0" rx="4" ry="5" fill="#111">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-26;-18;-26"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="5" ry="6" fill="#111">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="14;22;14"/>'
+      +'<ellipse cx="22" cy="0" rx="4" ry="5" fill="#111">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="18;26;18"/>'
       +'</ellipse>'
       // Blink
-      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
-      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
+      +'<ellipse cx="-22" cy="0" rx="24" ry="19" fill="#1a1a2e" opacity="0">'
+      +'<animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
-      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
+      +'<ellipse cx="22" cy="0" rx="24" ry="19" fill="#1a1a2e" opacity="0">'
+      +'<animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
       +'</ellipse>'
-      // Eyebrows raised nervously
-      +'<path d="M-36,-20 Q-18,-28 0,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
-      +'<path d="M4,-20 Q22,-28 40,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
+      // Eyebrows
+      +'<path d="M-42,-22 Q-22,-32 -2,-22" fill="none" stroke="#8B5020" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M6,-22 Q26,-32 46,-22" fill="none" stroke="#8B5020" stroke-width="3" stroke-linecap="round"/>'
+      // Label
+      +'<text x="0" y="28" text-anchor="middle" font-size="9" fill="#C60B1E" font-family="Arial,sans-serif" font-weight="900">ESP</text>'
       +'</g>'
-      // Right eye pair
-      +'<g transform="translate(268,62)">'
-      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white"/>'
-      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white"/>'
-      +'<ellipse cx="-18" cy="0" rx="10" ry="12" fill="#6B8CBA">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-14;-22;-14"/>'
+      // === ARGENTINA eyes (right) - blue iris, white ring ===
+      +'<g transform="translate(288,62)">'
+      +'<ellipse cx="-22" cy="0" rx="24" ry="19" fill="#f0f5ff"/>'
+      +'<ellipse cx="22" cy="0" rx="24" ry="19" fill="#f0f5ff"/>'
+      // Irises - blue with white ring (Argentine flag colors)
+      +'<ellipse cx="-22" cy="0" rx="12" ry="14" fill="#74ACDF">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-18;-26;-18"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="10" ry="12" fill="#6B8CBA">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="22;14;22"/>'
+      +'<ellipse cx="22" cy="0" rx="12" ry="14" fill="#74ACDF">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="26;18;26"/>'
       +'</ellipse>'
-      +'<ellipse cx="-18" cy="0" rx="5" ry="6" fill="#111">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-14;-22;-14"/>'
+      // White ring inside iris
+      +'<ellipse cx="-22" cy="0" rx="7" ry="9" fill="white">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-18;-26;-18"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="5" ry="6" fill="#111">'
-      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="22;14;22"/>'
+      +'<ellipse cx="22" cy="0" rx="7" ry="9" fill="white">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="26;18;26"/>'
       +'</ellipse>'
-      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
-      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.4s"/>'
+      // Pupils
+      +'<ellipse cx="-22" cy="0" rx="4" ry="5" fill="#111">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="-18;-26;-18"/>'
       +'</ellipse>'
-      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
-      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.4s"/>'
+      +'<ellipse cx="22" cy="0" rx="4" ry="5" fill="#111">'
+      +'<animate attributeName="cx" dur="2.2s" repeatCount="indefinite" values="26;18;26"/>'
       +'</ellipse>'
-      +'<path d="M-36,-20 Q-18,-28 0,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
-      +'<path d="M4,-20 Q22,-28 40,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
+      // Blink (offset)
+      +'<ellipse cx="-22" cy="0" rx="24" ry="19" fill="#1a1a2e" opacity="0">'
+      +'<animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.5s"/>'
+      +'</ellipse>'
+      +'<ellipse cx="22" cy="0" rx="24" ry="19" fill="#1a1a2e" opacity="0">'
+      +'<animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.5s"/>'
+      +'</ellipse>'
+      // Eyebrows
+      +'<path d="M-42,-22 Q-22,-32 -2,-22" fill="none" stroke="#5A7A9A" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M6,-22 Q26,-32 46,-22" fill="none" stroke="#5A7A9A" stroke-width="3" stroke-linecap="round"/>'
+      // Label
+      +'<text x="0" y="28" text-anchor="middle" font-size="9" fill="#74ACDF" font-family="Arial,sans-serif" font-weight="900">ARG</text>'
       +'</g>'
       +'<text x="200" y="100" text-anchor="middle" font-size="10" fill="#666" font-family="Arial,sans-serif">Straffer avgjor...</text>'
       +'</svg>';
