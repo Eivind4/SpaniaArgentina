@@ -77,7 +77,7 @@ var avNames = {
 // Bool question keys
 var boolQs = ['q_cable','q_trump','q_dance','q_var','q_var_goal','q_pen',
                'q_argleg','q_espleg','q_messi','q_yamal','q_yamal_bro','q_1966',
-               'q_throwin','q_turnaro','q_otgoal','q_subgoal'];
+               'q_throwin','q_turnaro','q_otgoal','q_subgoal','q_ro','q_cradle'];
 
 window.showTab = function(t) {
   document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('active'); });
@@ -207,7 +207,8 @@ window.submitEntry = async function() {
       q_yamal_bro:opts.q_yamal_bro||'', q_1966:opts.q_1966||'',
       q_throwin:opts.q_throwin||'', q_otgoal:opts.q_otgoal||'', q_subgoal:opts.q_subgoal||'',
       q_red:opts.q_red||'', q_turnaro:opts.q_turnaro||'',
-      q_passacc:opts.q_passacc||'',
+      q_passacc:opts.q_passacc||'', q_agediff:opts.q_agediff||'',
+      q_ro:opts.q_ro||'', q_cradle:opts.q_cradle||'',
       q_res:sc.q_res_esp+'-'+sc.q_res_arg,
       q_half:sc.q_half, q_yellow:sc.q_yellow,
       q_passes_esp:sc.q_passes_esp, q_passes_arg:sc.q_passes_arg,
@@ -263,7 +264,8 @@ window.calcAndSaveScores = async function() {
     q_yamal_bro:opts.a_yamal_bro||'', q_1966:opts.a_1966||'',
     q_throwin:opts.a_throwin||'', q_otgoal:opts.a_otgoal||'', q_subgoal:opts.a_subgoal||'',
     q_red:opts.a_red||'', q_turnaro:opts.a_turnaro||'',
-    q_passacc:opts.a_passacc||'',
+    q_passacc:opts.a_passacc||'', q_agediff:opts.a_agediff||'',
+    q_ro:opts.a_ro||'', q_cradle:opts.a_cradle||'',
     q_res:sc.a_res_esp+'-'+sc.a_res_arg,
     q_half:sc.a_half, q_yellow:sc.a_yellow,
     q_passes_esp:sc.a_passes_esp, q_passes_arg:sc.a_passes_arg,
@@ -298,6 +300,8 @@ window.calcAndSaveScores = async function() {
       if(ans.q_turnaro&&e.q_turnaro===ans.q_turnaro) p+=2;
       // 2pt passacc
       if(ans.q_passacc&&e.q_passacc===ans.q_passacc) p+=2;
+      // 2pt agediff
+      if(ans.q_agediff&&e.q_agediff===ans.q_agediff) p+=2;
       // 3pt first goal minute
       if(ans.q_min&&e.q_min&&e.q_min===ans.q_min) p+=3;
       // pct 0-5
