@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VM-Tipping - Spania vs Argentina</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;min-height:100vh;}
+.wrap{max-width:480px;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px;}
+.hdr{text-align:center;padding:12px 0 4px;}
+.hdr-flags{font-size:28px;margin-bottom:4px;}
+.hdr-title{font-family:'Anton',sans-serif;font-size:26px;color:#C60B1E;letter-spacing:2px;}
+.hdr-sub{font-size:13px;color:#666;margin-top:3px;}
+.card{background:white;border:1px solid #e0e0e0;border-radius:14px;padding:16px;}
+.card-title{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:1px;color:#111;margin-bottom:12px;}
+input[type=text]{width:100%;padding:11px 14px;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;border:2px solid #ddd;border-radius:10px;background:#f8f8f8;color:#111;}
+input[type=text]:focus{outline:none;border-color:#C60B1E;}
+select{width:100%;padding:11px 14px;font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;border:2px solid #ddd;border-radius:10px;background:#f8f8f8;color:#111;cursor:pointer;}
+select:focus{outline:none;border-color:#C60B1E;}
+.av-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.av-btn{border:2.5px solid #ddd;border-radius:12px;padding:8px 4px 6px;cursor:pointer;background:#f8f8f8;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.av-btn:hover{border-color:#aaa;}
+.av-btn.sel{border-color:#C60B1E;background:#fff0f0;}
+.av-btn.arg.sel{border-color:#74ACDF;background:#f0f5ff;}
+.av-name{font-size:9px;font-weight:900;color:#555;text-align:center;line-height:1.2;}
+.section-div{background:#f0f4f8;border-radius:8px;padding:7px 10px;margin-bottom:14px;font-family:'Anton',sans-serif;font-size:11px;letter-spacing:1.5px;color:#666;}
+.q-block{border-bottom:1px solid #f0f0f0;padding-bottom:13px;margin-bottom:13px;}
+.q-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.q-lbl{font-size:13px;font-weight:900;color:#111;line-height:1.4;margin-bottom:7px;}
+.pts{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:5px;vertical-align:middle;}
+.p1{background:#e8f5e9;color:#2e7d32;}
+.p2{background:#fff3e0;color:#e65100;}
+.p3{background:#fce4ec;color:#c62828;}
+.p5{background:#ede7f6;color:#4527a0;}
+.ppct{background:#e3f2fd;color:#1565c0;}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px;}
+.opt{border:2px solid #ddd;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;background:#f8f8f8;color:#333;}
+.opt:hover{background:#eee;}
+.opt.sel{background:#C60B1E;color:white;border-color:#C60B1E;}
+.sc-wrap{display:flex;align-items:center;gap:8px;margin-top:7px;flex-wrap:wrap;}
+.sc-btn{width:36px;height:36px;border-radius:50%;border:2px solid #ddd;background:#f8f8f8;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#333;font-weight:700;flex-shrink:0;}
+.sc-btn:hover{background:#eee;}
+.sc-input{width:72px;padding:6px 8px;font-size:18px;font-weight:900;font-family:'Nunito',sans-serif;border:2px solid #ddd;border-radius:8px;background:#f8f8f8;color:#111;text-align:center;}
+.sc-input:focus{outline:none;border-color:#C60B1E;}
+.sc-num{font-size:22px;font-weight:900;color:#111;min-width:28px;text-align:center;display:inline-block;}
+.sc-label{font-size:13px;color:#888;}
+.result-wrap{display:flex;gap:14px;align-items:center;margin-top:8px;flex-wrap:wrap;}
+.result-team{text-align:center;}
+.result-team-name{font-size:12px;color:#888;margin-bottom:5px;font-weight:900;letter-spacing:1px;}
+.result-stepper{display:flex;align-items:center;gap:8px;}
+.result-num{font-size:28px;font-weight:900;color:#111;min-width:32px;text-align:center;display:inline-block;}
+.hint{font-size:11px;color:#999;margin-top:5px;}
+.pct-note{font-size:11px;color:#1565c0;margin-top:5px;font-style:italic;}
+.tab-row{display:flex;gap:6px;}
+.tab{flex:1;padding:10px;font-family:'Anton',sans-serif;font-size:12px;letter-spacing:1px;border:2px solid #ddd;border-radius:10px;background:#f8f8f8;color:#888;cursor:pointer;text-align:center;}
+.tab.active{background:#C60B1E;color:#FFD700;border-color:#C60B1E;}
+.pane{display:none;flex-direction:column;gap:12px;}
+.pane.active{display:flex;}
+.lb-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.lb-tab{flex:1;padding:7px 4px;font-family:'Anton',sans-serif;font-size:10px;letter-spacing:1px;border:1.5px solid #ddd;border-radius:8px;background:#f8f8f8;color:#888;cursor:pointer;text-align:center;}
+.lb-tab.active{background:#C60B1E;color:#FFD700;border-color:#C60B1E;}
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin-bottom:7px;background:#f8f8f8;}
+.lb-rank{font-family:'Anton',sans-serif;font-size:18px;min-width:28px;color:#888;}
+.lb-name{font-weight:900;font-size:14px;color:#111;}
+.lb-pts{font-family:'Anton',sans-serif;font-size:20px;color:#C60B1E;}
+.lb-sub{font-size:11px;color:#888;}
+.gold{background:#fffde7;border:2px solid #FFD700;}
+.silver{background:#fafafa;border:1px solid #ccc;}
+.bronze{background:#fff8f0;border:1px solid #e0a060;}
+.admin-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid #f0f0f0;}
+.admin-row:last-child{border-bottom:none;}
+.admin-lbl{font-size:12px;font-weight:900;min-width:175px;color:#333;}
+.submit-btn{width:100%;padding:14px;font-family:'Anton',sans-serif;font-size:18px;letter-spacing:2px;background:#C60B1E;color:#FFD700;border:none;border-radius:12px;cursor:pointer;}
+.submit-btn:hover{opacity:.9;}
+.submit-btn:disabled{opacity:.4;cursor:default;}
+.new-btn{width:100%;padding:11px;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:2px;background:white;color:#C60B1E;border:2.5px solid #C60B1E;border-radius:12px;cursor:pointer;margin-top:10px;}
+.success{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:14px;padding:20px;text-align:center;display:none;}
+.success .big{font-family:'Anton',sans-serif;font-size:24px;color:#1b5e20;}
+.success .sub{font-size:13px;color:#2e7d32;margin-top:5px;font-weight:700;}
+.firebase-status{font-size:11px;text-align:center;padding:4px;color:#999;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #ddd;border-top-color:#C60B1E;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:4px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.detail-row{padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px;}
+.detail-row:last-child{border-bottom:none;}
+.detail-label{font-weight:700;color:#888;font-size:11px;}
+.detail-val{color:#111;font-weight:700;}
+.team-confirmed{font-size:12px;color:#2e7d32;font-weight:700;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="hdr-flags">🇪🇸 ⚽ 🇦🇷</div>
+    <div class="hdr-title">VM-FINALEN 2026</div>
+    <div class="hdr-sub">Spania mot Argentina · Søndag 19. juli 2026</div>
+  </div>
+
+  <!-- Trophy animation -->
+  <div style="background:#1a1a2e;border-radius:14px;padding:8px;overflow:hidden;">
+    <svg width="100%" height="90" viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="90" fill="#1a1a2e"/>
+      <!-- Stars background -->
+      <circle cx="20" cy="15" r="1.2" fill="white" opacity="0.4"/>
+      <circle cx="60" cy="8" r="1" fill="white" opacity="0.3"/>
+      <circle cx="110" cy="20" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="170" cy="6" r="1" fill="white" opacity="0.3"/>
+      <circle cx="230" cy="18" r="1.2" fill="white" opacity="0.4"/>
+      <circle cx="280" cy="9" r="1" fill="white" opacity="0.3"/>
+      <circle cx="340" cy="16" r="1.5" fill="white" opacity="0.4"/>
+      <circle cx="380" cy="7" r="1" fill="white" opacity="0.3"/>
+      <!-- Confetti -->
+      <rect x="30" y="0" width="5" height="9" fill="#C60B1E" rx="1"><animate attributeName="y" dur="2s" repeatCount="indefinite" values="0;90" begin="0s"/><animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="1;0" begin="0s"/></rect>
+      <rect x="80" y="0" width="5" height="9" fill="#FFD700" rx="1"><animate attributeName="y" dur="1.7s" repeatCount="indefinite" values="0;90" begin="0.4s"/><animate attributeName="opacity" dur="1.7s" repeatCount="indefinite" values="1;0" begin="0.4s"/></rect>
+      <rect x="140" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="2.2s" repeatCount="indefinite" values="0;90" begin="0.2s"/><animate attributeName="opacity" dur="2.2s" repeatCount="indefinite" values="1;0" begin="0.2s"/></rect>
+      <rect x="200" y="0" width="5" height="9" fill="white" rx="1"><animate attributeName="y" dur="1.9s" repeatCount="indefinite" values="0;90" begin="0.7s"/><animate attributeName="opacity" dur="1.9s" repeatCount="indefinite" values="1;0" begin="0.7s"/></rect>
+      <rect x="260" y="0" width="5" height="9" fill="#C60B1E" rx="1"><animate attributeName="y" dur="2.1s" repeatCount="indefinite" values="0;90" begin="0.3s"/><animate attributeName="opacity" dur="2.1s" repeatCount="indefinite" values="1;0" begin="0.3s"/></rect>
+      <rect x="320" y="0" width="5" height="9" fill="#FFD700" rx="1"><animate attributeName="y" dur="1.8s" repeatCount="indefinite" values="0;90" begin="0.9s"/><animate attributeName="opacity" dur="1.8s" repeatCount="indefinite" values="1;0" begin="0.9s"/></rect>
+      <rect x="360" y="0" width="5" height="9" fill="#74ACDF" rx="1"><animate attributeName="y" dur="2.3s" repeatCount="indefinite" values="0;90" begin="0.5s"/><animate attributeName="opacity" dur="2.3s" repeatCount="indefinite" values="1;0" begin="0.5s"/></rect>
+      <!-- Trophy - gently pulsing -->
+      <g transform="translate(200,48)">
+        <animateTransform attributeName="transform" type="scale" dur="2s" repeatCount="indefinite" values="1,1;1.04,1.04;1,1" additive="sum"/>
+        <!-- Base plate -->
+        <rect x="-18" y="30" width="36" height="6" rx="2" fill="#B8860B"/>
+        <rect x="-12" y="24" width="24" height="8" rx="1" fill="#DAA520"/>
+        <!-- Stem -->
+        <rect x="-5" y="10" width="10" height="16" rx="2" fill="#DAA520"/>
+        <!-- Cup body -->
+        <path d="M-22,-20 Q-24,5 -12,12 L12,12 Q24,5 22,-20 Z" fill="#FFD700"/>
+        <!-- Cup shine -->
+        <path d="M-15,-18 Q-16,0 -8,8" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Handles -->
+        <path d="M-22,-10 Q-34,-10 -34,0 Q-34,8 -22,8" fill="none" stroke="#DAA520" stroke-width="4" stroke-linecap="round"/>
+        <path d="M22,-10 Q34,-10 34,0 Q34,8 22,8" fill="none" stroke="#DAA520" stroke-width="4" stroke-linecap="round"/>
+        <!-- Stars on trophy -->
+        <text x="0" y="-4" text-anchor="middle" font-size="10" fill="#B8860B">★</text>
+      </g>
+      <!-- ESP vs ARG text -->
+      <text x="100" y="78" text-anchor="middle" font-size="11" font-weight="900" fill="#C60B1E" font-family="Arial,sans-serif">ESP</text>
+      <text x="200" y="80" text-anchor="middle" font-size="10" fill="#888" font-family="Arial,sans-serif">VM-FINALE</text>
+      <text x="300" y="78" text-anchor="middle" font-size="11" font-weight="900" fill="#74ACDF" font-family="Arial,sans-serif">ARG</text>
+    </svg>
+  </div>
+
+  <!-- Countdown -->
+  <div id="countdownBox" style="background:#fff5f5;border:1.5px solid #f5a0a0;border-radius:12px;padding:12px 16px;text-align:center;">
+    <div style="font-size:11px;font-weight:900;color:#555;letter-spacing:2px;margin-bottom:6px;">REGISTRERING STENGER KL. 21:00 - 19. JULI 2026</div>
+    <div style="display:flex;justify-content:center;gap:10px;">
+      <div style="text-align:center;"><div style="font-family:'Anton',sans-serif;font-size:26px;color:#C60B1E;min-width:40px;" id="cd-d">--</div><div style="font-size:10px;font-weight:700;color:#555;letter-spacing:1px;">DAGER</div></div>
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:#f5a0a0;padding-top:2px;">:</div>
+      <div style="text-align:center;"><div style="font-family:'Anton',sans-serif;font-size:26px;color:#C60B1E;min-width:40px;" id="cd-h">--</div><div style="font-size:10px;font-weight:700;color:#555;letter-spacing:1px;">TIMER</div></div>
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:#f5a0a0;padding-top:2px;">:</div>
+      <div style="text-align:center;"><div style="font-family:'Anton',sans-serif;font-size:26px;color:#C60B1E;min-width:40px;" id="cd-m">--</div><div style="font-size:10px;font-weight:700;color:#555;letter-spacing:1px;">MIN</div></div>
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:#f5a0a0;padding-top:2px;">:</div>
+      <div style="text-align:center;"><div style="font-family:'Anton',sans-serif;font-size:26px;color:#C60B1E;min-width:40px;" id="cd-s">--</div><div style="font-size:10px;font-weight:700;color:#555;letter-spacing:1px;">SEK</div></div>
+    </div>
+  </div>
+  <div id="lockBanner" style="display:none;background:#fce4ec;border:2px solid #e53935;border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-family:'Anton',sans-serif;font-size:18px;color:#c62828;">REGISTRERING STENGT</div>
+    <div style="font-size:13px;color:#c62828;margin-top:4px;font-weight:700;">Fristen kl. 21:00 er passert.</div>
+  </div>
+
+  <div class="firebase-status" id="fbStatus"><span class="spinner"></span>Kobler til...</div>
+
+  <div class="tab-row">
+    <div class="tab active" id="tab-tipp" onclick="showTab('tipp')">✏️ TIPP</div>
+    <div class="tab" id="tab-stilling" onclick="showTab('stilling')">🏆 STILLING</div>
+  </div>
+
+  <!-- ===== TIPP ===== -->
+  <div class="pane active" id="pane-tipp">
+
+    <div class="card">
+      <div class="card-title">👤 Hvem tipper?</div>
+      <input type="text" id="playerName" placeholder="Skriv navn her..." maxlength="30">
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Velg lag (valgfritt)</div>
+      <select id="teamSelect" onchange="onTeamChange(this)">
+        <option value="">-- Ingen / velg lag --</option>
+        <option value="__new__">+ Opprett nytt lag</option>
+      </select>
+      <div id="newTeamWrap" style="display:none;margin-top:8px;flex-direction:column;gap:6px;">
+        <input type="text" id="newTeamName" placeholder="Lagnavn..." maxlength="30">
+        <button class="submit-btn" style="padding:10px;font-size:14px;" onclick="confirmNewTeam()">BEKREFT LAG</button>
+      </div>
+      <div class="team-confirmed" id="teamConfirmed"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🧡 Velg din spiller!</div>
+      <div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px;">🇪🇸 SPANSKE SPILLERE</div>
+      <div class="av-grid">
+        <button class="av-btn" data-av="yamal" data-emoji="⭐" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">19</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#8B5A2B"/><path d="M16,27 Q15,11 28,10 Q41,11 40,27 Q37,17 28,17 Q19,17 16,27Z" fill="#1a0a00"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Yamal #19</div>
+        </button>
+        <button class="av-btn" data-av="rodri" data-emoji="💎" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">16</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Rodri #16</div>
+        </button>
+        <button class="av-btn" data-av="pedri" data-emoji="🎯" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">8</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Pedri #8</div>
+        </button>
+        <button class="av-btn" data-av="williams" data-emoji="⚡" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">17</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#8B5A2B"/><path d="M16,27 Q15,11 28,10 Q41,11 40,27 Q37,17 28,17 Q19,17 16,27Z" fill="#1a0a00"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#3E2723"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">N.Williams #17</div>
+        </button>
+        <button class="av-btn" data-av="carvajal" data-emoji="🛡️" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">2</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Carvajal #2</div>
+        </button>
+        <button class="av-btn" data-av="laporte" data-emoji="🧱" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">14</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Laporte #14</div>
+        </button>
+        <button class="av-btn" data-av="fabianruiz" data-emoji="🎯" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">6</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Fabian Ruiz #6</div>
+        </button>
+        <button class="av-btn" data-av="oyarzabal" data-emoji="🥅" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#C60B1E"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">11</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#C60B1E"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#333"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Oyarzabal #11</div>
+        </button>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#888;margin:10px 0 6px;">🇦🇷 ARGENTINSKE SPILLERE</div>
+      <div class="av-grid">
+        <button class="av-btn arg" data-av="messi" data-emoji="🐐" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">10</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Messi #10</div>
+        </button>
+        <button class="av-btn arg" data-av="martinez" data-emoji="🥊" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">23</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">E.Martinez</div>
+        </button>
+        <button class="av-btn arg" data-av="alvarez" data-emoji="🚀" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">9</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">J.Alvarez #9</div>
+        </button>
+        <button class="av-btn arg" data-av="macallister" data-emoji="🎯" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">5</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">MacAllister #5</div>
+        </button>
+        <button class="av-btn arg" data-av="lmartinez" data-emoji="🔥" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">22</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">L.Martinez #22</div>
+        </button>
+        <button class="av-btn arg" data-av="depaul" data-emoji="🎪" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">7</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">De Paul #7</div>
+        </button>
+        <button class="av-btn arg" data-av="molina" data-emoji="⚡" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">26</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5CBA7"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#8B6A34"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Molina #26</div>
+        </button>
+        <button class="av-btn arg" data-av="tagliafico" data-emoji="🛡️" onclick="selAv(this)">
+          <svg width="52" height="64" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="42" width="36" height="34" rx="5" fill="#74ACDF"/><text x="28" y="57" text-anchor="middle" font-size="10" font-weight="900" fill="white" font-family="Arial,sans-serif">3</text><rect x="2" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="45" y="45" width="9" height="24" rx="3" fill="#74ACDF"/><rect x="16" y="74" width="9" height="5" rx="2" fill="#222"/><rect x="31" y="74" width="9" height="5" rx="2" fill="#222"/><ellipse cx="28" cy="24" rx="13" ry="15" fill="#F5DEB3"/><path d="M16,26 Q16,11 28,10 Q40,11 40,26 Q37,17 28,17 Q19,17 16,26Z" fill="#555"/><ellipse cx="23" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><ellipse cx="33" cy="25" rx="2.2" ry="1.8" fill="#5D4037"/><path d="M24,31 Q28,34 32,31" fill="none" stroke="#C07060" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="av-name">Tagliafico #3</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🧠 Tippeskjema</div>
+
+      <div class="section-div">🟢 ENKLE — 1 poeng</div>
+
+      <div class="q-block">
+        <div class="q-lbl">📺 Treffer ballen en kamerawire i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_cable"><button class="opt" onclick="selOpt('q_cable',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_cable',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🇺🇸 Sitter Trump ved siden av Infantino på tribunen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_trump"><button class="opt" onclick="selOpt('q_trump',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_trump',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">💃 Ser vi "Trump-dansen" i forbindelse med en målfeiring? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_dance"><button class="opt" onclick="selOpt('q_dance',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_dance',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Refererer til Lukakus feiring av mål mot USA 🕺</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🎬 Blir en VAR-avgjørelse omgjort i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_var"><button class="opt" onclick="selOpt('q_var',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_var',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">❌ Blir et mål annulert på grunn av VAR? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_var_goal"><button class="opt" onclick="selOpt('q_var_goal',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_var_goal',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+
+
+      <div class="q-block">
+        <div class="q-lbl">🟢 Blir det straffespark i ordinær tid? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_pen"><button class="opt" onclick="selOpt('q_pen',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_pen',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Ikke straffespark i straffesparkkonkurranse</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">👴 Ser vi noen av disse argentinske legendene på tribunen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_argleg"><button class="opt" onclick="selOpt('q_argleg',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_argleg',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Di Maria · Higuain · Aguero · Riquelme</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">👴 Ser vi noen av disse spanske legendene på tribunen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_espleg"><button class="opt" onclick="selOpt('q_espleg',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_espleg',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Xavi · Iniesta · Torres · Busquets</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🐐 Scorer Messi eller gir assist i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_messi"><button class="opt" onclick="selOpt('q_messi',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_messi',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Inkluderer ikke straffespark i straffesparkkonkurranse</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">⭐ Scorer Lamine Yamal eller gir assist i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_yamal"><button class="opt" onclick="selOpt('q_yamal',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_yamal',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">👶 Ser vi lillebroren til Yamal på tribunen i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_yamal_bro"><button class="opt" onclick="selOpt('q_yamal_bro',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_yamal_bro',this,'Nei')">❌ Nei</button></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">📺 Nevner kommentatorene VM-kampen mellom Spania og Argentina i 1966 i løpet av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_1966"><button class="opt" onclick="selOpt('q_1966',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_1966',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Argentina slo Spania 2-1 i gruppespillet i 1966 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+      </div>
+
+
+      <div class="q-block">
+        <div class="q-lbl">🤾 Blir det innkast innen de første 10 sekundene av kampen? <span class="pts p1">1 poeng</span></div>
+        <div class="opts" id="q_throwin"><button class="opt" onclick="selOpt('q_throwin',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_throwin',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Mange lag har slått ballen over i motstanderens halvdel ved avspark i dette VM</div>
+      </div>
+
+      <div class="section-div">🟡 MIDDELS — 2 poeng</div>
+
+      <div class="q-block">
+        <div class="q-lbl">⚡ Mål i første omgang? <span class="pts p2">2 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_half',-1)">-</button>
+          <input class="sc-input" type="number" id="q_half-val" value="0" min="0" max="20" onchange="syncInput('q_half')" oninput="syncInput('q_half')">
+          <button class="sc-btn" onclick="adjSc('q_half',1)">+</button>
+          <span class="sc-label">mål totalt</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🟨 Gule kort totalt? <span class="pts p2">2 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_yellow',-1)">-</button>
+          <input class="sc-input" type="number" id="q_yellow-val" value="0" min="0" max="20" onchange="syncInput('q_yellow')" oninput="syncInput('q_yellow')">
+          <button class="sc-btn" onclick="adjSc('q_yellow',1)">+</button>
+          <span class="sc-label">kort</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🔴 Rødt kort (ordinær tid, hensyntar ikke kort som slettes i etterkant)? <span class="pts p2">2 poeng</span></div>
+        <div class="opts" id="q_red">
+          <button class="opt" onclick="selOpt('q_red',this,'Nei')">✅ Ingen</button>
+          <button class="opt" onclick="selOpt('q_red',this,'ESP')">🇪🇸 Spania</button>
+          <button class="opt" onclick="selOpt('q_red',this,'ARG')">🇦🇷 Argentina</button>
+          <button class="opt" onclick="selOpt('q_red',this,'Begge')">😱 Begge</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🔄 Klarer Argentina å snu kampen? <span class="pts p2">2 poeng</span></div>
+        <div class="opts" id="q_turnaro"><button class="opt" onclick="selOpt('q_turnaro',this,'Ja')">✅ Ja!</button><button class="opt" onclick="selOpt('q_turnaro',this,'Nei')">❌ Nei</button></div>
+        <div class="hint">Argentina trenger ikke å lede ved full tid, men må lede på et tidspunkt i kampen etter å ha ligget under</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">📊 Hvilket lag har høyest pasningsnøyaktighet? <span class="pts p2">2 poeng</span></div>
+        <div class="opts" id="q_passacc">
+          <button class="opt" onclick="selOpt('q_passacc',this,'ESP')">🇪🇸 Spania</button>
+          <button class="opt" onclick="selOpt('q_passacc',this,'ARG')">🇦🇷 Argentina</button>
+          <button class="opt" onclick="selOpt('q_passacc',this,'Likt')">🤝 Likt</button>
+        </div>
+      </div>
+
+      <div class="section-div">🔴 VANSKELIG — 3 poeng</div>
+
+      <div class="q-block">
+        <div class="q-lbl">⏱️ Minutt for kampens første mål? <span class="pts p3">3 poeng</span></div>
+        <select id="q_min" style="margin-top:6px;">
+          <option value="">-- Velg intervall --</option>
+          <option value="0">Ingen mål</option>
+          <option value="1">1-10 min</option>
+          <option value="11">11-20 min</option>
+          <option value="21">21-30 min</option>
+          <option value="31">31-40 min</option>
+          <option value="41">41-50 min</option>
+          <option value="51">51-60 min</option>
+          <option value="61">61-70 min</option>
+          <option value="71">71-80 min</option>
+          <option value="81">81-90 min</option>
+          <option value="91">91-100 min (ekstraomgang)</option>
+          <option value="101">101-110 min (ekstraomgang)</option>
+          <option value="111">111-120 min (ekstraomgang)</option>
+        </select>
+      </div>
+
+      <div class="section-div">📊 PROSENTBASERT — opptil 5 poeng</div>
+
+      <div class="q-block">
+        <div class="q-lbl">🇪🇸 Antall pasninger — Spania? <span class="pts ppct">0-5 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_passes_esp',-1)">-</button>
+          <input class="sc-input" type="number" id="q_passes_esp-val" value="0" min="0" max="1000" onchange="syncInput('q_passes_esp')" oninput="syncInput('q_passes_esp')">
+          <button class="sc-btn" onclick="adjSc('q_passes_esp',1)">+</button>
+          <span class="sc-label">pasninger</span>
+        </div>
+        <div class="hint">Mellom 400-700 pasninger er forventet for hvert lag</div>
+        <div class="pct-note">5 pts ved eksakt - avtar med % avstand</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🇦🇷 Antall pasninger — Argentina? <span class="pts ppct">0-5 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_passes_arg',-1)">-</button>
+          <input class="sc-input" type="number" id="q_passes_arg-val" value="0" min="0" max="1000" onchange="syncInput('q_passes_arg')" oninput="syncInput('q_passes_arg')">
+          <button class="sc-btn" onclick="adjSc('q_passes_arg',1)">+</button>
+          <span class="sc-label">pasninger</span>
+        </div>
+        <div class="hint">Mellom 400-700 pasninger er forventet for hvert lag</div>
+        <div class="pct-note">5 pts ved eksakt - avtar med % avstand</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🌟 Antall corners totalt? <span class="pts ppct">0-5 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_corners',-1)">-</button>
+          <input class="sc-input" type="number" id="q_corners-val" value="0" min="0" max="50" onchange="syncInput('q_corners')" oninput="syncInput('q_corners')">
+          <button class="sc-btn" onclick="adjSc('q_corners',1)">+</button>
+          <span class="sc-label">corners</span>
+        </div>
+        <div class="hint">Hint: vanligvis mellom 5 og 14</div>
+        <div class="pct-note">5 pts ved eksakt - avtar med % avstand</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🥅 Antall skudd på mål totalt? <span class="pts ppct">0-5 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_shots',-1)">-</button>
+          <input class="sc-input" type="number" id="q_shots-val" value="0" min="0" max="50" onchange="syncInput('q_shots')" oninput="syncInput('q_shots')">
+          <button class="sc-btn" onclick="adjSc('q_shots',1)">+</button>
+          <span class="sc-label">skudd</span>
+        </div>
+        <div class="hint">Hint: vanligvis mellom 4 og 14</div>
+        <div class="pct-note">5 pts ved eksakt - avtar med % avstand</div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🎯 Antall frispark totalt? <span class="pts ppct">0-5 poeng</span></div>
+        <div class="sc-wrap">
+          <button class="sc-btn" onclick="adjSc('q_free',-1)">-</button>
+          <input class="sc-input" type="number" id="q_free-val" value="0" min="0" max="100" onchange="syncInput('q_free')" oninput="syncInput('q_free')">
+          <button class="sc-btn" onclick="adjSc('q_free',1)">+</button>
+          <span class="sc-label">frispark</span>
+        </div>
+        <div class="hint">Hint: vanligvis mellom 15 og 30</div>
+        <div class="pct-note">5 pts ved eksakt - avtar med % avstand</div>
+      </div>
+
+      <div class="section-div">🌟 HOVED — 5 poeng</div>
+
+      <div class="q-block">
+        <div class="q-lbl">📊 Resultat ved full tid (etter ordinær tid + ekstraomganger)? <span class="pts p5">5 pts eksakt / 2 pts ett lag riktig</span></div>
+        <div class="result-wrap">
+          <div class="result-team">
+            <div class="result-team-name">🇪🇸 Spania</div>
+            <div class="result-stepper">
+              <button class="sc-btn" onclick="adjSc('q_res_esp',-1)">-</button>
+              <span class="result-num" id="q_res_esp-val">0</span>
+              <button class="sc-btn" onclick="adjSc('q_res_esp',1)">+</button>
+            </div>
+          </div>
+          <div style="font-size:22px;font-weight:900;color:#888;padding:0 4px;">vs</div>
+          <div class="result-team">
+            <div class="result-team-name">🇦🇷 Argentina</div>
+            <div class="result-stepper">
+              <button class="sc-btn" onclick="adjSc('q_res_arg',-1)">-</button>
+              <span class="result-num" id="q_res_arg-val">0</span>
+              <button class="sc-btn" onclick="adjSc('q_res_arg',1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-lbl">🏆 Hvem vinner VM (inkl. straffespark)? <span class="pts p5">5 poeng</span></div>
+        <div class="opts" id="q_winner">
+          <button class="opt" onclick="selOpt('q_winner',this,'ESP')">🇪🇸 Spania</button>
+          <button class="opt" onclick="selOpt('q_winner',this,'ARG')">🇦🇷 Argentina</button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitEntry()">SEND INN TIPPING ⚽</button>
+    <div class="success" id="successBox">
+      <div style="font-size:48px;margin-bottom:8px;" id="successEmoji">⚽</div>
+      <div class="big" id="successName">REGISTRERT!</div>
+      <div class="sub" id="successSub">Lykke til!</div>
+      <button class="new-btn" onclick="resetForm()">+ Registrer en til</button>
+    </div>
+
+  </div>
+
+  <!-- ===== STILLING ===== -->
+  <div class="pane" id="pane-stilling">
+
+    <div id="resultAnim" style="display:none;border-radius:14px;overflow:hidden;"></div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px;">🏆 POENGTAVLE</div>
+      <div class="lb-tabs">
+        <div class="lb-tab active" id="lbt-total" onclick="setLbMode('total')">🏅 ALLE</div>
+        <div class="lb-tab" id="lbt-team" onclick="setLbMode('team')">👥 FILTRER LAG</div>
+        <div class="lb-tab" id="lbt-teamavg" onclick="setLbMode('teamavg')">🏆 BESTE LAG</div>
+      </div>
+      <div id="teamFilterWrap" style="display:none;margin-bottom:10px;">
+        <select id="teamFilter" onchange="setTeamFilter(this.value)" style="width:100%;padding:9px 12px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;border:2px solid #ddd;border-radius:10px;background:#f8f8f8;color:#111;cursor:pointer;">
+          <option value="">-- Alle lag --</option>
+        </select>
+      </div>
+      <div style="font-size:11px;color:#999;margin-bottom:12px;" id="lb-info">Live</div>
+      <div id="lbList"></div>
+      <div id="lbEmpty" style="text-align:center;padding:24px;color:#aaa;font-size:14px;">Ingen registreringer ennå 🙈</div>
+    </div>
+
+    <div class="card" id="playerDetailCard" style="display:none;">
+      <div class="card-title">👤 Se registrering per spiller</div>
+      <select id="playerSelect" onchange="showPlayerDetail(this.value)" style="width:100%;padding:10px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;border:2px solid #ddd;border-radius:10px;background:#f8f8f8;color:#111;margin-bottom:10px;">
+        <option value="">-- Velg spiller --</option>
+      </select>
+      <div id="playerDetailBody"></div>
+    </div>
+
+    <button id="editFasitBtn" onclick="toggleFasit()" style="width:100%;padding:12px;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:1.5px;background:white;color:#C60B1E;border:2.5px solid #C60B1E;border-radius:12px;cursor:pointer;">⚙️ REGISTRER / ENDRE FASIT</button>
+
+    <div id="fasitCard" style="display:none;">
+      <div class="card">
+        <div class="card-title">⚙️ Registrer fasit</div>
+        <div style="font-size:12px;color:#888;margin-bottom:12px;">Fyll inn etter kampen og trykk "Oppdater poeng".</div>
+        <div style="display:flex;flex-direction:column;">
+
+          <div class="admin-row"><span class="admin-lbl">🏆 Hvem vinner?</span>
+            <div class="opts" id="a_winner" style="margin:0;"><button class="opt" onclick="selOpt('a_winner',this,'ESP')">🇪🇸 Spania</button><button class="opt" onclick="selOpt('a_winner',this,'ARG')">🇦🇷 Argentina</button></div></div>
+
+          <div class="admin-row"><span class="admin-lbl">📊 Resultat (full tid)</span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:11px;color:#888;font-weight:700;">🇪🇸</span>
+              <button class="sc-btn" onclick="adjScSpan('a_res_esp',-1)">-</button>
+              <span class="sc-num" id="a_res_esp-val">0</span>
+              <button class="sc-btn" onclick="adjScSpan('a_res_esp',1)">+</button>
+              <span style="font-weight:900;color:#888;font-size:18px;">-</span>
+              <button class="sc-btn" onclick="adjScSpan('a_res_arg',-1)">-</button>
+              <span class="sc-num" id="a_res_arg-val">0</span>
+              <button class="sc-btn" onclick="adjScSpan('a_res_arg',1)">+</button>
+              <span style="font-size:11px;color:#888;font-weight:700;">🇦🇷</span>
+            </div>
+          </div>
+
+          <div class="admin-row"><span class="admin-lbl">📺 Kamerakabel truffet?</span>
+            <div class="opts" id="a_cable" style="margin:0;"><button class="opt" onclick="selOpt('a_cable',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_cable',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🇺🇸 Trump ved Infantino?</span>
+            <div class="opts" id="a_trump" style="margin:0;"><button class="opt" onclick="selOpt('a_trump',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_trump',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">💃 Trump-dansen vist?</span>
+            <div class="opts" id="a_dance" style="margin:0;"><button class="opt" onclick="selOpt('a_dance',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_dance',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🎬 VAR omgjort?</span>
+            <div class="opts" id="a_var" style="margin:0;"><button class="opt" onclick="selOpt('a_var',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_var',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">❌ Mal annulert VAR?</span>
+            <div class="opts" id="a_var_goal" style="margin:0;"><button class="opt" onclick="selOpt('a_var_goal',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_var_goal',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🟢 Straffe ordinær tid?</span>
+            <div class="opts" id="a_pen" style="margin:0;"><button class="opt" onclick="selOpt('a_pen',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_pen',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">👴 ARG-legendar sett?</span>
+            <div class="opts" id="a_argleg" style="margin:0;"><button class="opt" onclick="selOpt('a_argleg',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_argleg',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">👴 ESP-legendar sett?</span>
+            <div class="opts" id="a_espleg" style="margin:0;"><button class="opt" onclick="selOpt('a_espleg',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_espleg',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">⚽ Yamal scorer?</span>
+            <div class="opts" id="a_yamal" style="margin:0;"><button class="opt" onclick="selOpt('a_yamal',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_yamal',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">👦 Yamals lillebror sett?</span>
+            <div class="opts" id="a_yamal_bro" style="margin:0;"><button class="opt" onclick="selOpt('a_yamal_bro',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_yamal_bro',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">📺 VM 1966 nevnt?</span>
+            <div class="opts" id="a_1966" style="margin:0;"><button class="opt" onclick="selOpt('a_1966',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_1966',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🐐 Messi mål/assist?</span>
+            <div class="opts" id="a_messi" style="margin:0;"><button class="opt" onclick="selOpt('a_messi',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_messi',this,'Nei')">❌ Nei</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🤾 Innkast 10 sek?</span>
+            <div class="opts" id="a_throwin" style="margin:0;"><button class="opt" onclick="selOpt('a_throwin',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_throwin',this,'Nei')">❌ Nei</button></div></div>
+
+          <div class="admin-row"><span class="admin-lbl">⚡ Mål 1. omgang</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_half',-1)">-</button><input class="sc-input" type="number" id="a_half-val" value="0" min="0" onchange="syncInput('a_half')" oninput="syncInput('a_half')"><button class="sc-btn" onclick="adjSc('a_half',1)">+</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🟨 Gule kort</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_yellow',-1)">-</button><input class="sc-input" type="number" id="a_yellow-val" value="0" min="0" onchange="syncInput('a_yellow')" oninput="syncInput('a_yellow')"><button class="sc-btn" onclick="adjSc('a_yellow',1)">+</button></div></div>
+
+          <div class="admin-row"><span class="admin-lbl">🔴 Rødt kort?</span>
+            <div class="opts" id="a_red" style="margin:0;">
+              <button class="opt" onclick="selOpt('a_red',this,'Nei')">✅</button>
+              <button class="opt" onclick="selOpt('a_red',this,'ESP')">🇪🇸</button>
+              <button class="opt" onclick="selOpt('a_red',this,'ARG')">🇦🇷</button>
+              <button class="opt" onclick="selOpt('a_red',this,'Begge')">😱</button>
+            </div>
+          </div>
+
+          <div class="admin-row"><span class="admin-lbl">🔄 Argentina snur?</span>
+            <div class="opts" id="a_turnaro" style="margin:0;"><button class="opt" onclick="selOpt('a_turnaro',this,'Ja')">✅ Ja</button><button class="opt" onclick="selOpt('a_turnaro',this,'Nei')">❌ Nei</button></div></div>
+
+          <div class="admin-row"><span class="admin-lbl">📊 Høyest pasningsnøyk.?</span>
+            <div class="opts" id="a_passacc" style="margin:0;">
+              <button class="opt" onclick="selOpt('a_passacc',this,'ESP')">🇪🇸 Spania</button>
+              <button class="opt" onclick="selOpt('a_passacc',this,'ARG')">🇦🇷 Argentina</button>
+              <button class="opt" onclick="selOpt('a_passacc',this,'Likt')">🤝</button>
+            </div>
+          </div>
+
+          <div class="admin-row"><span class="admin-lbl">⏱️ Kampens 1. mål</span>
+            <select id="a_min" style="padding:8px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;border:2px solid #ddd;border-radius:8px;background:#f8f8f8;color:#111;cursor:pointer;">
+              <option value="">-- Velg --</option>
+              <option value="0">Ingen mål</option>
+              <option value="1">1-10 min</option><option value="11">11-20 min</option><option value="21">21-30 min</option><option value="31">31-40 min</option><option value="41">41-50 min</option><option value="51">51-60 min</option><option value="61">61-70 min</option><option value="71">71-80 min</option><option value="81">81-90 min</option><option value="91">91-100 min</option><option value="101">101-110 min</option><option value="111">111-120 min</option>
+            </select>
+          </div>
+
+          <div class="admin-row"><span class="admin-lbl">🇪🇸 Pasninger Spania</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_passes_esp',-10)">-</button><input class="sc-input" type="number" id="a_passes_esp-val" value="0" min="0" style="width:80px;" onchange="syncInput('a_passes_esp')" oninput="syncInput('a_passes_esp')"><button class="sc-btn" onclick="adjSc('a_passes_esp',10)">+</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🇦🇷 Pasninger Argentina</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_passes_arg',-10)">-</button><input class="sc-input" type="number" id="a_passes_arg-val" value="0" min="0" style="width:80px;" onchange="syncInput('a_passes_arg')" oninput="syncInput('a_passes_arg')"><button class="sc-btn" onclick="adjSc('a_passes_arg',10)">+</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🌟 Corners</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_corners',-1)">-</button><input class="sc-input" type="number" id="a_corners-val" value="0" min="0" onchange="syncInput('a_corners')" oninput="syncInput('a_corners')"><button class="sc-btn" onclick="adjSc('a_corners',1)">+</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🥅 Skudd på mål</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_shots',-1)">-</button><input class="sc-input" type="number" id="a_shots-val" value="0" min="0" onchange="syncInput('a_shots')" oninput="syncInput('a_shots')"><button class="sc-btn" onclick="adjSc('a_shots',1)">+</button></div></div>
+          <div class="admin-row"><span class="admin-lbl">🎯 Frispark</span>
+            <div class="sc-wrap" style="margin:0;"><button class="sc-btn" onclick="adjSc('a_free',-1)">-</button><input class="sc-input" type="number" id="a_free-val" value="0" min="0" onchange="syncInput('a_free')" oninput="syncInput('a_free')"><button class="sc-btn" onclick="adjSc('a_free',1)">+</button></div></div>
+
+        </div>
+        <button class="submit-btn" onclick="calcAndSaveScores()" style="margin-top:14px;">OPPDATER POENG 🔄</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script type="module" src="quiz.js"></script>
+</body>
+</html>
