@@ -300,8 +300,8 @@ window.calcAndSaveScores = async function() {
       if(ans.q_turnaro&&e.q_turnaro===ans.q_turnaro) p+=2;
       // 2pt passacc
       if(ans.q_passacc&&e.q_passacc===ans.q_passacc) p+=2;
-      // 2pt agediff
-      if(ans.q_agediff&&e.q_agediff===ans.q_agediff) p+=2;
+      // 3pt agediff
+      if(ans.q_agediff&&e.q_agediff===ans.q_agediff) p+=3;
       // 3pt first goal minute
       if(ans.q_min&&e.q_min&&e.q_min===ans.q_min) p+=3;
       // pct 0-5
@@ -474,8 +474,8 @@ function showResultAnimation(resultKey, winner) {
       +'<ellipse cx="14" cy="-10" rx="5" ry="8" fill="white" transform="rotate(-20 14 -10)"/>'
       +'<ellipse cx="14" cy="-10" rx="3" ry="5" fill="#ffcccc" transform="rotate(-20 14 -10)"/>'
       +'</g>'
-      // Jersey #10 (left side)
-      +'<g transform="translate(62,95)">'
+      // Jersey #10 (above goat, right side)
+      +'<g transform="translate(305,42)">'
       // Jersey body
       +'<rect x="-20" y="-15" width="40" height="42" rx="5" fill="#74ACDF"/>'
       // White stripes
@@ -489,68 +489,70 @@ function showResultAnimation(resultKey, winner) {
       // Number 10
       +'<text x="0" y="18" text-anchor="middle" font-size="20" font-weight="900" fill="white" font-family="Arial,sans-serif" opacity="0.95">10</text>'
       // Gentle sway
-      +'<animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="-3 62 95;3 62 95;-3 62 95"/>'
       +'</g>'
       +'</svg>';
 
   } else {
-    // Draw - GOAT wearing jersey #10 + two flags, no shaking
-    el.innerHTML='<svg width="100%" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">'
-      +'<rect width="400" height="120" fill="#1a1a2e"/>'
+    // Draw - nervous eyes waiting for penalties
+    el.innerHTML='<svg width="100%" height="110" viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">'
+      +'<rect width="400" height="110" fill="#1a1a2e"/>'
       +'<text x="200" y="18" text-anchor="middle" font-size="13" font-weight="900" fill="#FFD700" font-family="Arial,sans-serif">UAVGJORT '+esp+'-'+arg+' - STRAFFER?</text>'
-      // ESP flag (left, static)
-      +'<line x1="50" y1="30" x2="50" y2="100" stroke="#888" stroke-width="2"/>'
-      +'<rect x="51" y="30" width="40" height="11" fill="#C60B1E" rx="1"/>'
-      +'<rect x="51" y="41" width="40" height="11" fill="#FFD700"/>'
-      +'<rect x="51" y="52" width="40" height="11" fill="#C60B1E" rx="1"/>'
-      +'<circle cx="50" cy="28" r="3" fill="#FFD700"/>'
-      // ARG flag (right, static)
-      +'<line x1="310" y1="30" x2="310" y2="100" stroke="#888" stroke-width="2"/>'
-      +'<rect x="311" y="30" width="40" height="11" fill="#74ACDF" rx="1"/>'
-      +'<rect x="311" y="41" width="40" height="11" fill="white"/>'
-      +'<circle cx="331" cy="46" r="4" fill="#F6B40E"/>'
-      +'<rect x="311" y="52" width="40" height="11" fill="#74ACDF" rx="1"/>'
-      +'<circle cx="310" cy="28" r="3" fill="#FFD700"/>'
-      // GOAT wearing jersey #10 (centre)
-      +'<g transform="translate(200,72)">'
-      // Jersey on goat body
-      +'<ellipse cx="0" cy="8" rx="26" ry="16" fill="#74ACDF"/>'
-      // White stripes on jersey
-      +'<rect x="-26" y="-2" width="11" height="20" fill="white" rx="2"/>'
-      +'<rect x="15" y="-2" width="11" height="20" fill="white" rx="2"/>'
-      // Number 10 on jersey
-      +'<text x="0" y="14" text-anchor="middle" font-size="13" font-weight="900" fill="white" font-family="Arial,sans-serif">10</text>'
-      // Jersey sleeves
-      +'<ellipse cx="-30" cy="2" rx="8" ry="5" fill="#74ACDF" transform="rotate(-20)"/>'
-      +'<ellipse cx="30" cy="2" rx="8" ry="5" fill="#74ACDF" transform="rotate(20)"/>'
-      // Head
-      +'<ellipse cx="28" cy="-10" rx="16" ry="12" fill="white"/>'
-      // Horns
-      +'<path d="M22,-20 Q18,-34 22,-38" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
-      +'<path d="M30,-22 Q30,-36 34,-38" fill="none" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"/>'
-      // Eye
-      +'<ellipse cx="36" cy="-12" rx="2.5" ry="2" fill="#333"/>'
-      +'<ellipse cx="36.5" cy="-12.5" rx="1" ry="1" fill="white"/>'
-      // Nostril
-      +'<ellipse cx="42" cy="-7" rx="1.5" ry="1" fill="#ccc"/>'
-      // Beard
-      +'<path d="M36,-3 Q38,6 34,10" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"/>'
-      // Ear
-      +'<ellipse cx="16" cy="-16" rx="5" ry="8" fill="white" transform="rotate(-25 16 -16)"/>'
-      +'<ellipse cx="16" cy="-16" rx="3" ry="5" fill="#ffcccc" transform="rotate(-25 16 -16)"/>'
-      // Legs (static, no animation)
-      +'<rect x="-18" y="22" width="7" height="16" rx="3" fill="white"/>'
-      +'<rect x="-6" y="22" width="7" height="16" rx="3" fill="white"/>'
-      +'<rect x="6" y="22" width="7" height="16" rx="3" fill="white"/>'
-      +'<rect x="18" y="22" width="7" height="16" rx="3" fill="white"/>'
-      +'<rect x="-18" y="36" width="7" height="4" rx="1" fill="#555"/>'
-      +'<rect x="-6" y="36" width="7" height="4" rx="1" fill="#555"/>'
-      +'<rect x="6" y="36" width="7" height="4" rx="1" fill="#555"/>'
-      +'<rect x="18" y="36" width="7" height="4" rx="1" fill="#555"/>'
-      // Tail
-      +'<path d="M-26,6 Q-36,2 -34,-6" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>'
+      // Left eye pair (ESP red tinge)
+      +'<g transform="translate(120,62)">'
+      // Eye whites
+      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white"/>'
+      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white"/>'
+      // Irises - darting left/right
+      +'<ellipse cx="-18" cy="0" rx="10" ry="12" fill="#5D8A3C">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-22;-14;-22"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="10" ry="12" fill="#5D8A3C">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="14;22;14"/>'
+      +'</ellipse>'
+      // Pupils
+      +'<ellipse cx="-18" cy="0" rx="5" ry="6" fill="#111">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-22;-14;-22"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="5" ry="6" fill="#111">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="14;22;14"/>'
+      +'</ellipse>'
+      // Blink
+      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
+      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
+      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0"/>'
+      +'</ellipse>'
+      // Eyebrows raised nervously
+      +'<path d="M-36,-20 Q-18,-28 0,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M4,-20 Q22,-28 40,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
       +'</g>'
-      +'<text x="200" y="116" text-anchor="middle" font-size="9" fill="#666" font-family="Arial,sans-serif">Straffer avgjor...</text>'
+      // Right eye pair
+      +'<g transform="translate(268,62)">'
+      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white"/>'
+      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white"/>'
+      +'<ellipse cx="-18" cy="0" rx="10" ry="12" fill="#6B8CBA">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-14;-22;-14"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="10" ry="12" fill="#6B8CBA">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="22;14;22"/>'
+      +'</ellipse>'
+      +'<ellipse cx="-18" cy="0" rx="5" ry="6" fill="#111">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="-14;-22;-14"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="5" ry="6" fill="#111">'
+      +'<animate attributeName="cx" dur="2s" repeatCount="indefinite" values="22;14;22"/>'
+      +'</ellipse>'
+      +'<ellipse cx="-18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
+      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.4s"/>'
+      +'</ellipse>'
+      +'<ellipse cx="18" cy="0" rx="22" ry="18" fill="white" opacity="0">'
+      +'<animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0;0;0;0;0;1;0" begin="0.4s"/>'
+      +'</ellipse>'
+      +'<path d="M-36,-20 Q-18,-28 0,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
+      +'<path d="M4,-20 Q22,-28 40,-20" fill="none" stroke="#8B6A34" stroke-width="3" stroke-linecap="round"/>'
+      +'</g>'
+      +'<text x="200" y="100" text-anchor="middle" font-size="10" fill="#666" font-family="Arial,sans-serif">Straffer avgjor...</text>'
       +'</svg>';
   }
 }
